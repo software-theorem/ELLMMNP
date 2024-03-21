@@ -1,0 +1,62 @@
+1. extract the word between '"' and '\n'(name and its explaination):
+"connectWith
+
+The method name is based on the type of the parameter 'cf' and the return type of the method."
+2.extract the word between ' ' and '(':
+"public void setDelay(long amount, TimeUnit unit) {
+    if (amount < 0) {
+        throw new IllegalArgumentException(""Amount must be positive value."");
+    }
+    this.delayMs = unit.toMillis(amount);
+}"
+3.original word:
+sort. 
+4. view this as nothing:
+"public void (R n) {
+        long p = produced;
+        if (p!= 0) {
+            BackpressureHelper.produced(this, p);
+        }
+        for (;;) {
+            long r = get();
+            if ((r & COMPLETE_MASK)!= 0) {
+                onDrop(n);
+                return;
+            }
+            if ((r & REQUEST_MASK)!= 0) {
+                lazySet(COMPLETE_MASK + 1);
+                downstream.onNext(n);
+                downstream.onComplete();
+                return;
+            }
+            value = n;
+            if (compareAndSet(0, COMPLETE_MASK)) {
+                return;
+            }
+            value = null;
+        }
+    }"
+5.view this as nothing:
+instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+### Instruction:
+Here are three examples of code and the corresponding comment.
+Code:
+@Override
+6. extract the word between '"' and '\n'(many names):
+"setErrorHandler
+setScheduleHandler
+setComputationSchedulerHandler
+setInitComputationSchedulerHandler
+setIoSchedulerHandler
+setInitIoSchedulerHandler
+setSingleSchedulerHandler
+setInitSingleSchedulerHandler
+setNewThreadSchedulerHandler
+setInitNewThreadSchedulerHandler
+setOnFlowableAssembly
+setOnFlowableSubscribe
+setOnObservableAssembly
+setOnObservableSubscribe
+setOnSingleAssembly
+setOnSingleSubscribe
