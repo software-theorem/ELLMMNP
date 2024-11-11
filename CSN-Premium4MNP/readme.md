@@ -21,29 +21,29 @@ We release the dataset in this [website](https://drive.google.com/drive/folders/
 
 The following is a table of statistics on the treatment of low-quality method names：
 
-| Java                               |       | Test     | Train     | Valid     | Sum     |
-| ---------------------------------- | ----- | -------- | --------- | --------- | ------- |
-| total samples                      | 10955 | 164923   | 5183      | 181061    | 181061  |
-| num of Single  noun or preposition | 1937  | 25234    | 865       | 28036     | 28036   |
-| num of Broad  meaning              | 259   | 5553     | 115       | 5927      | 5927    |
-| num of Obscure  abbreviation       | 84    | 1412     | 52        | 1548      | 1548    |
-| num of Digits in  word             | 203   | 1985     | 65        | 2253      | 2253    |
-| num of Inconsistent  naming        | 1341  | 35729    | 449       | 37519     | 37519   |
-| all error sample                   | 3824  | 69913    | 1546      | 75283     | 75283   |
-| deduplicated  error samples        | 3284  | 58042    | 1326      | 62652     | 62652   |
-| overlapping error samples          | 540   | 11871    | 220       | 12631     | 12631   |
-| appropriate  method names          | 7671  | 106881   | 3857      | 118409    | 118409  |
-| **Python**                         | ****  | **Test** | **Train** | **Valid** | **Sum** |
-| total samples                      | 14918 | 251820   | 13914     | 280652    | 280652  |
-| num of Single  noun or preposition | 3414  | 58531    | 3744      | 65689     | 65689   |
-| num of Broad  meaning              | 381   | 7127     | 378       | 7886      | 7886    |
-| num of Obscure  abbreviation       | 190   | 1731     | 167       | 2088      | 2088    |
-| num of Digits in  word             | 205   | 4954     | 312       | 5471      | 5471    |
-| num of Inconsistent  naming        | 2408  | 61051    | 2049      | 65508     | 65508   |
-| all error sample                   | 6598  | 133394   | 6650      | 146642    | 146642  |
-| deduplicated  error samples        | 5696  | 112602   | 5723      | 124021    | 124021  |
-| overlapping error samples          | 902   | 20792    | 927       | 22621     | 22621   |
-| appropriate  method names          | 9222  | 139218   | 8191      | 156631    | 156631  |
+| Java                               | Train     | Valid     | Test     | Sum     |
+| ---------------------------------- | --------- | --------- | -------- | ------- |
+| total samples                      | 164923    | 5183      | 10955    | 181061  |
+| num of Single  noun or preposition | 25234     | 865       | 1937     | 28036   |
+| num of Broad  meaning              | 5553      | 115       | 259      | 5927    |
+| num of Obscure  abbreviation       | 1412      | 52        | 84       | 1548    |
+| num of Digits in  word             | 1985      | 65        | 203      | 2253    |
+| num of Inconsistent  naming        | 35729     | 449       | 1341     | 37519   |
+| all error sample                   | 69913     | 1546      | 3824     | 75283   |
+| deduplicated  error samples        | 58042     | 1326      | 3284     | 62652   |
+| overlapping error samples          | 11871     | 220       | 540      | 12631   |
+| appropriate  method names          | 106881    | 3857      | 7671     | 118409  |
+| **Python**                         | **Train** | **Valid** | **Test** | **Sum** |
+| total samples                      | 251820    | 13914     | 14918    | 280652  |
+| num of Single  noun or preposition | 58531     | 3744      | 3414     | 65689   |
+| num of Broad  meaning              | 7127      | 378       | 381      | 7886    |
+| num of Obscure  abbreviation       | 1731      | 167       | 190      | 2088    |
+| num of Digits in  word             | 4954      | 312       | 205      | 5471    |
+| num of Inconsistent  naming        | 61051     | 2049      | 2408     | 65508   |
+| all error sample                   | 133394    | 6650      | 6598     | 146642  |
+| deduplicated  error samples        | 112602    | 5723      | 5696     | 124021  |
+| overlapping error samples          | 20792     | 927       | 902      | 22621   |
+| appropriate  method names          | 139218    | 8191      | 9222     | 156631  |
 
 **Total Samples**: The total number of samples.
 
