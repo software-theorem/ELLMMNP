@@ -16,8 +16,8 @@ torchvision==0.16.0
 ```
 LLM_eval_code/
 ├── data/                       # Original datasets (Java and Python)
-│   ├── *.txt                   # Plain text format
-│   └── *.jsonl                 # JSONL format
+│   ├── Java_examples.txt/Python_examples.txt           # Plain text format
+│   └── Java_examples.jsonl/Python_examples.jsonl        # JSONL format
 ├── result/                     # Model prediction results
 │   ├── java/                   # Evaluation results for Java
 │   └── python/                 # Evaluation results for Python
