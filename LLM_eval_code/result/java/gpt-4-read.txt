@@ -1,0 +1,992 @@
+-----------------样本：0 -----------------
+idx: 0
+code:
+public Rule XXXXX(final int nrCycles) {
+    Preconditions.checkArgument(nrCycles >= 0, "illegal repetition number specified (" + nrCycles + "), must be 0 or greater");
+    return range(Range.atMost(nrCycles));
+}
+reasons:
+To evaluate the function and the suggested names, let’s break down the provided snippet first:
+
+### Code Summary
+The function checks if the parameter `nrCycles` is non-negative and then returns a `Rule` based on a range limited by `nrCycles`. If `nrCycles` is invalid (i.e., less than 0), it throws an exception.
+
+### Function Name Evaluations
+
+**Function Name 1: max**  
+**C1: 2.** The name `max` is vague and does not provide any context about what is being maximized. While it might imply a limit or maximum value, it does not convey that this function is related to cycles or rules. It lacks clarity concerning its functionality.
+
+**Function Name 2: cycle**  
+**C1: 3.** The name `cycle` is somewhat descriptive as it relates directly to the parameter `nrCycles`. However, it is not fully adequate since it doesn’t indicate that this method is about creating or returning a `Rule` based on cycles. It could refer to a variety of functions, thus making it somewhat generic.
+
+**Function Name 3: cyclic**  
+**C1: 3.** Similar to `cycle`, the term `cyclic` implies a relationship with cycles but remains vague. It doesn’t convey the rule-creating aspect or specify what the function does. While better than `max`, it lacks the specificity needed to be clear and helpful for potential users.
+
+**Function Name 4: createrulewithrepetition**  
+**C1: 5.** This name precisely describes the functionality of the method: it creates a `Rule` based on a specified number of repetitions (or cycles). It is clear and adheres to naming conventions, allowing users to understand the function's purpose immediately.
+
+### Summary of Evaluations
+- **Function Name 1: max**  
+  **C1: 2.** Vague and lacks specific context regarding its functionality.
+
+- **Function Name 2: cycle**  
+  **C1: 3.** Somewhat descriptive but too generic to convey the full functionality of the method.
+
+- **Function Name 3: cyclic**  
+  **C1: 3.** Provides a hint towards its purpose but remains unclear and does not fully express its functionality.
+
+- **Function Name 4: createrulewithrepetition**  
+  **C1: 5.** Excellent name, very clear, and accurately conveys what the function does.
+
+
+-----------------样本：1 -----------------
+idx: 1
+code:
+public static Characters XXXXX(final char... chars) {
+    final int length = chars.length;
+    if (length == 0) {
+        return ALL;
+    }
+
+    final char[] array = Arrays.copyOf(chars, length);
+    Arrays.sort(array);
+    return new Characters(true, array);
+}
+reasons:
+Let's evaluate the provided function code snippet and the candidate function names based on the outlined criteria.
+
+### Code Summary:
+The method takes a variable number of characters as input, checks if any characters are passed, and if none are given, it returns a constant (presumably `ALL`). If characters are provided, it copies and sorts them, then returns a new `Characters` object initialized with a boolean `true` and the sorted array of characters.
+
+### Function Name 1: allBut
+**C1: 2.** The name "allBut" suggests an exclusionary function, implying that it would return everything except for certain items. This is misleading because the function does not exclude characters but rather sorts and returns them or a constant. The name does not clearly capture the primary functionality of the method, leading to confusion.
+
+### Function Name 2: of
+**C1: 3.** The name "of" is very generic and does not convey any meaningful description of what the function does. While it aligns with common naming conventions for factory or builder methods, it lacks specificity regarding the operation being performed (sorting and wrapping characters). Therefore, it is somewhat descriptive but not ideal.
+
+### Function Name 3: of
+**C1: 3.** This name is identical to Function Name 2, and the evaluation remains the same. It is generic and fails to provide clarity about the function's purpose. Similar to the previous evaluation, it's somewhat adequate but lacks a critical element of descriptiveness in this context.
+
+### Function Name 4: characters
+**C1: 4.** The name "characters" is clearer and adequately reflects the content being dealt with, as it deals with an array of character data. It does not explicitly convey the sorting aspect, but it is a reasonable choice for a function that deals with character arrays or collections. Thus, it gets a good rating as an appropriate descriptor.
+
+### Summary of Evaluations:
+- **Function Name 1: allBut**  
+**C1: 2.** Misleading name suggesting exclusion, which is not what the function does.
+  
+- **Function Name 2: of**  
+**C1: 3.** Generic name that lacks specificity; somewhat descriptive but not ideal.
+
+- **Function Name 3: of**  
+**C1: 3.** Identical to the previous, retaining the same drawbacks of vagueness.
+
+- **Function Name 4: characters**  
+**C1: 4.** Clear and adequately describes the content; only slightly lacks specificity in behavior.
+
+
+-----------------样本：2 -----------------
+idx: 2
+code:
+private boolean XXXXX(RequestContext requestContext, ConfigValue<Long> timeout) {
+    // return false if no timeout configured or per-request timeout already specified in request context
+    return timeout.getValue() != null && timeout.getValue() > 0 && !hasRequestContextTimeout(requestContext);
+}
+reasons:
+**Function Name 1: needApplyTaskTimeout**  
+C1: 2. The name is vague and does not directly indicate that the method checks for a valid timeout configuration. It implies that there may be a decision to apply a timeout, but it doesn't clearly convey the functionality of validating whether a timeout is set and applicable based on the request context.
+
+---
+
+**Function Name 2: checktimeout**  
+C1: 3. While this name suggests that there is a check being performed related to the timeout, it is poorly formatted (should be camelCase or similar) and lacks specificity about what is being checked, particularly concerning the request context.
+
+---
+
+**Function Name 3: hastimeout**  
+C1: 2. This name suggests a simple check for the existence of a timeout, but it's misleading as the method does more than just determine if a timeout exists; it also checks if it is positive and not set in the request context. Thus, it doesn't accurately represent the function's full intent.
+
+---
+
+**Function Name 4: istimeoutsetinrequestcontext**  
+C1: 4. This name provides a clear and detailed description of what the method does, indicating that it checks if a timeout is set in the request context. It follows a common naming convention and is generally readable, but it could be simplified for better clarity and conciseness, hence it does not receive a perfect score.
+
+--- 
+
+In summary, the best function name among the candidates is **Function Name 4**, as it most accurately describes the functionality of the method. The other names fall short in clarity, specificity, or semantic accuracy.
+
+
+-----------------样本：3 -----------------
+idx: 3
+code:
+public Jdbi3 XXXXX(Consumer<Jdbi> configurer) {
+    return doWith((jdbi, conf) -> configurer.accept(jdbi));
+}
+reasons:
+Let's evaluate the candidate function names based on the provided code snippet and the criteria mentioned.
+
+### Code Snippet
+```java
+public Jdbi3 XXXXX(Consumer<Jdbi> configurer) {
+    return doWith((jdbi, conf) -> configurer.accept(jdbi));
+}
+```
+
+### Function Names Evaluation
+
+**Function Name 1: doWith**  
+C1: 4. This name is clear and indicates that the function does something with the given parameter. However, it lacks specificity regarding what is being done with the `Jdbi` object.  
+
+**Function Name 2: configure**  
+C1: 3. The name indicates that some configuration is happening, but it does not capture the context that it operates on a `Jdbi` object specifically. It’s somewhat vague since it does not specify what is being configured.
+
+**Function Name 3: configure**  
+C1: 3. Similar to Function Name 2, it presents the same strengths and weaknesses. It suggests configuration but lacks specificity regarding its application. 
+
+**Function Name 4: configurejdbi**  
+C1: 5. This name is precise, indicating that the function is specifically for configuring a `Jdbi` object. It is clear, readable, and follows good naming conventions, including the context of `Jdbi`.
+
+### Summary of Results
+- **Function Name 1: doWith**  
+  C1: 4. This name adequately describes the function's intent, but it lacks specificity about the action performed.
+
+- **Function Name 2: configure**  
+  C1: 3. A somewhat descriptive name, but it is vague and not specific to `Jdbi`, missing the context of what is being configured.
+
+- **Function Name 3: configure**  
+  C1: 3. Identical to Function Name 2, it carries the same evaluation for its acidity and context.
+
+- **Function Name 4: configurejdbi**  
+  C1: 5. This is a precise and clear name, making it evident that the function configures a `Jdbi` instance, and it follows naming conventions well.
+
+
+-----------------样本：4 -----------------
+idx: 4
+code:
+public boolean XXXXX(final URI uri) {
+    for (final MigrationLoader loader : loaders) {
+        if (loader.accept(uri)) {
+            return true;
+        }
+    }
+    return false;
+}
+reasons:
+### Code Snippet Summary:
+The function iterates through a collection of `MigrationLoader` objects to check if any of them accept a given URI. It returns `true` if at least one loader accepts the URI; otherwise, it returns `false`.
+
+**Function Name 1: accept**  
+C1: 2. This name is vague and not descriptive enough for the functionality of the method, as it does not convey that it's checking if a loader accepts a specific URI within a collection. 
+
+**Function Name 2: load**  
+C1: 1. This name is very misleading as it implies that the function might be responsible for loading something, which is not relevant to the functionality described in the code.
+
+**Function Name 3: canload**  
+C1: 2. While this name suggests a check if something can be loaded, it still lacks clarity regarding its purpose in relation to the `URI` and `MigrationLoader`, making it somewhat generic and not directly descriptive.
+
+**Function Name 4: ismigrationloaderexistsforuri**  
+C1: 4. This name is quite descriptive and specifies that it checks for the existence of a `MigrationLoader` for a given `URI`. However, it's quite lengthy, which may affect its readability and usage. 
+
+### Summary of Ratings:
+1. **Function Name 1: accept** - C1: 2. Vague and not descriptive enough.
+2. **Function Name 2: load** - C1: 1. Misleading and unrelated to the function's purpose.
+3. **Function Name 3: canload** - C1: 2. Generic and lacks specific context regarding the `URI`.
+4. **Function Name 4: ismigrationloaderexistsforuri** - C1: 4. Descriptive and specific, but too lengthy for ease of use.
+
+
+-----------------样本：5 -----------------
+idx: 5
+code:
+public void XXXXX(String name, Command command) {
+    Preconditions.checkArgument(name != null && !name.isEmpty(), "Parameter 'name' must not be [" + name + "]");
+    Preconditions.checkArgument(command != null, "Parameter 'command' must not be [" + command + "]");
+    commands.put(name, command);
+}
+reasons:
+**Function Name 1: register**  
+C1: 4. This name is clear and mostly accurate, as it suggests that a command is being registered under a specified name, which aligns with the functionality of adding a command to a collection. However, it doesn't explicitly convey that it's adding the command to a map structure.
+
+**Function Name 2: addcommand**  
+C1: 3. This name is somewhat descriptive but overly generic. It accurately reflects that a command is being added, but it lacks clarity regarding the context of adding it to a map or storage system.
+
+**Function Name 3: addcommand**  
+C1: 3. This rating is identical to Function Name 2 because it is a duplicate. It suffers from the same issues—being somewhat descriptive but not specific enough about what it's adding to or the method's functionality.
+
+**Function Name 4: addcommandtomap**  
+C1: 5. This name is precise, clear, and idiomatic. It effectively communicates that a command is being added to a map structure, which is exactly what the function does, making it an excellent choice.
+
+
+-----------------样本：6 -----------------
+idx: 6
+code:
+private void XXXXX(Collection<FileDescriptor> target, Map<String, FileDescriptor> after) {
+    Map<String, FileDescriptor> before = getCache(target);
+    Map<String, FileDescriptor> all = new HashMap<>();
+    all.putAll(before);
+    all.putAll(after);
+
+    for (Map.Entry<String, FileDescriptor> entry : all.entrySet()) {
+        String key = entry.getKey();
+        FileDescriptor fileDescriptor = entry.getValue();
+        boolean hasBefore = before.containsKey(key);
+        boolean hasAfter = after.containsKey(key);
+
+        if (hasBefore && !hasAfter) {
+            target.remove(fileDescriptor);
+        } else if (!hasBefore && hasAfter) {
+            target.add(fileDescriptor);
+        }
+    }
+}
+reasons:
+**Function Name 1: sync**  
+C1: 2. The name "sync" is vague and generic; it does not specifically convey the action of updating the target collection based on the presence of file descriptors in the before and after maps. While synchronization may imply bringing two sets of data into agreement, it lacks clarity on what is specifically being synchronized in this context.
+
+**Function Name 2: updatecache**  
+C1: 3. The name "updatecache" somewhat describes the action of updating, but it inaccurately suggests that the function operates directly on a caching mechanism. The primary focus of the code is altering the `target` collection based on changes in the `before` and `after` maps, and it does not explicitly show cache updates, making this name somewhat misaligned with the method's main goal.
+
+**Function Name 3: mergecache**  
+C1: 4. The name "mergecache" is fairly descriptive in that it implies combining or merging two data sources (the before and after maps) into the target collection. It conveys more accurately that something is being integrated, which aligns with the code's functionality, although "cache" may not be the right terminological fit in this context.
+
+**Function Name 4: updatetargetcollection**  
+C1: 5. The name "updatetargetcollection" is precise and directly reflects the method's functionality as it clearly indicates that the function updates a target collection based on the state of two input maps. It adheres to naming conventions, is readable, and provides a clear understanding of what the method is intended to do. 
+
+In summary:
+1. sync: 2 - Vague and generic.
+2. updatecache: 3 - Somewhat descriptive but misleading regarding the focus on caching.
+3. mergecache: 4 - Mostly accurate, implies merging but could be clearer.
+4. updatetargetcollection: 5 - Precise, clear, and directly related to functionality.
+
+
+-----------------样本：7 -----------------
+idx: 7
+code:
+public static void XXXXX(final String name, final boolean condition, final SingleResultCallback<?> callback) {
+    if (!condition) {
+        IllegalStateException exception = new IllegalStateException("state should be: " + name);
+        callback.onResult(null, exception);
+        throw exception;
+    }
+}
+reasons:
+**Function Name 1: isTrue**  
+C1: 2. This name is vague and does not accurately reflect the functionality of the method, which checks a condition and throws an exception if the condition is false. The name "isTrue" suggests a boolean check rather than capturing the exception handling and callback aspect of the method.
+
+**Function Name 2: checkstate**  
+C1: 4. This name is mostly accurate as it implies that the method checks some state, but it could be clearer about the exception-throwing behavior. It is readable and follows naming conventions, making it a good fit.
+
+**Function Name 3: checkstate**  
+C1: 4. This is a duplicate of Function Name 2 and has the same analysis. It mostly describes the method's functionality and adheres to naming conventions, although it doesn’t capture the callback aspect or the thrown exception.
+
+**Function Name 4: validateconditionandcallback**  
+C1: 5. This name is excellent because it clearly describes the method's functionality—it validates a condition and involves a callback. While somewhat lengthy, it is precise and conveys all critical aspects of the method's behavior.
+
+
+-----------------样本：8 -----------------
+idx: 8
+code:
+@SafeVarargs
+public static <T> T[]XXXXX(final T[] array1, final T... array2) {
+    if (isEmpty(array1) && isEmpty(array2)) {
+        return null;
+    }
+
+    if (isEmpty(array1)) {
+        return array2;
+    }
+
+    if (isEmpty(array2)) {
+        return array1;
+    }
+
+    final Class<?> type1 = array1.getClass().getComponentType();
+
+    @SuppressWarnings("unchecked") // OK, because array is of type T
+    final T[] joinedArray = (T[]) Array.newInstance(type1, array1.length + array2.length);
+
+    int index = 0;
+    for (T item : array1) {
+        joinedArray[index++] = item;
+    }
+
+    for (T item : array2) {
+        joinedArray[index++] = item;
+    }
+
+    return joinedArray;
+}
+reasons:
+**Function Name 1: join**  
+C1: 4. This name suggests that the function combines two arrays, which aligns with its functionality. While "join" is a common term in various programming contexts, it may lack specificity in defining array operations, but it remains clear and idiomatic for this operation.
+
+**Function Name 2: concat**  
+C1: 4. The term "concat" is widely recognized as shorthand for "concatenate," indicating that it combines items, making it a good descriptor of the function's purpose. Like "join," it is also clear and follows common naming conventions but may be a bit less descriptive about the context of array merging specifically.
+
+**Function Name 3: concat**  
+C1: 4. This name is identical to Function Name 2, and the same evaluation applies. It accurately conveys the functionality in a clear manner while adhering to common naming conventions. However, it could still benefit from being slightly more descriptive regarding the array aspect.
+
+**Function Name 4: mergearrays**  
+C1: 5. This name is very descriptive and accurately reflects the functionality of the method, indicating that it merges two arrays into one. It is clear, making it easy to understand, and adheres well to naming conventions regarding the purpose of the function. This makes it an excellent choice for this method.
+
+
+-----------------样本：9 -----------------
+idx: 9
+code:
+private static String XXXXX(String service, String base) {
+    if (base == null) {
+        base = DEFAULT_DNS;
+    }
+    return String.format(DNS_NAME_FORMAT, service, base);
+}
+reasons:
+Let's evaluate each of the candidate function names based on the provided code snippet.
+
+### Code Snippet Summary:
+The function takes a `service` and a `base` string as parameters. If `base` is `null`, it assigns it a default value (`DEFAULT_DNS`). The function then formats and returns a DNS name string based on the provided parameters.
+
+### Function Name 1: getDNS
+**C1: 4.** This name describes that the function retrieves a DNS (Domain Function Name System) entry, which aligns with its purpose of formatting a DNS name. It is clear and follows naming conventions, but the use of "get" may suggest it simply retrieves an existing value rather than constructing a new one.
+
+### Function Name 2: naturalname
+**C1: 2.** The name "naturalname" is vague and does not clearly suggest what the function does. It fails to indicate that it involves DNS or formatting. It is not standard naming for such a function, leading to a poor semantic match regarding functionality.
+
+### Function Name 3: getdnsname
+**C1: 5.** This name clearly indicates that the function retrieves a DNS name, aligning well with its functionality. It follows a consistent naming style, is precise and clear. The lowercase format is less conventional in some languages, but it's still readable.
+
+### Function Name 4: generatednsname
+**C1: 4.** This name suggests that the function generates a DNS name, which is accurate since it formats a name based on provided parameters. It is clear and mostly accurate, but might imply a more complex generation process than merely formatting.
+
+### Summary:
+- **Function Name 1: getDNS**
+  **C1: 4.** Good semantic match but implies retrieval more than creation.
+  
+- **Function Name 2: naturalname**
+  **C1: 2.** Vague and does not accurately convey the function's purpose.
+  
+- **Function Name 3: getdnsname**
+  **C1: 5.** Excellent clarity and precise description of functionality.
+  
+- **Function Name 4: generatednsname**
+  **C1: 4.** Clear and accurate but slightly misleading about the complexity of the operation.
+
+
+-----------------样本：10 -----------------
+idx: 10
+code:
+public StringClauses XXXXX(String existingKey, String newKey, String newValue) throws IllegalArgumentException {
+    return insertBeforeImpl(existingKey, newKey, newValue);
+}
+reasons:
+**Function Name 1: insertBefore**  
+C1: 5. The name "insertBefore" accurately describes the method's functionality, as it suggests that something is being inserted in relation to a key. It follows common naming conventions and is both clear and expressive.
+
+**Function Name 2: replace**  
+C1: 2. The name "replace" is misleading because the method is not actually replacing anything; rather, it is inserting a new key-value pair before an existing key. This semantic mismatch may cause confusion about the function's purpose.
+
+**Function Name 3: addclause**  
+C1: 3. The name "addclause" is somewhat descriptive but not ideal. While it conveys the notion of adding something, it lacks clarity concerning the specific action of inserting a key-value pair. Additionally, it does not follow the camelCase naming convention commonly used in Java.
+
+**Function Name 4: updatekeyvalue**  
+C1: 2. The name "updatekeyvalue" implies that existing data is being updated, which does not align with the method's action of inserting a new key-value pair. This name is vague and could lead to misunderstandings regarding what the method actually does.
+
+
+-----------------样本：11 -----------------
+idx: 11
+code:
+public URI XXXXX(final URI uri) throws URISyntaxException, StorageException {
+    final String origRawQuery = uri.getRawQuery();
+    final String rawFragment = uri.getRawFragment();
+    final String uriString = uri.resolve(uri).toASCIIString();
+    final HashMap<String, String[]> origQueryMap = PathUtility.parseQueryString(origRawQuery);
+
+    // Try/Insert original queries to map
+    for (final Entry<String, String[]> entry : origQueryMap.entrySet()) {
+        for (final String val : entry.getValue()) {
+            this.insertKeyValue(entry.getKey(), val);
+        }
+    }
+
+    final StringBuilder retBuilder = new StringBuilder();
+
+    // has a fragment
+    if (Utility.isNullOrEmpty(origRawQuery) && !Utility.isNullOrEmpty(rawFragment)) {
+        final int bangDex = uriString.indexOf(' ');
+        retBuilder.append(uriString.substring(0, bangDex));
+    } else if (!Utility.isNullOrEmpty(origRawQuery)) {
+        // has a query
+        final int queryDex = uriString.indexOf(' ');
+        retBuilder.append(uriString.substring(0, queryDex));
+    } else {
+        // no fragment or query
+        retBuilder.append(uriString);
+        if (uri.getRawPath().length() <= 0) {
+            retBuilder.append("/");
+        }
+    }
+
+    final String finalQuery = this.toString();
+
+    if (finalQuery.length() > 0) {
+        retBuilder.append("?");
+        retBuilder.append(finalQuery);
+    }
+
+    if (!Utility.isNullOrEmpty(rawFragment)) {
+        retBuilder.append("#");
+        retBuilder.append(rawFragment);
+    }
+
+    return new URI(retBuilder.toString());
+}
+reasons:
+**Function Name 1: addToURI**  
+C1: 3. This name partially reflects the function's purpose of modifying or appending information to a URI, but it lacks clarity about the specific operations performed, such as query insertion and fragment handling.
+
+**Function Name 2: convert**  
+C1: 2. This name is vague and does not accurately convey the functionality of the method. While the function does involve transforming the URI, "convert" is too generic to imply the specific alterations being made (like query and fragment processing).
+
+**Function Name 3: rewrite**  
+C1: 4. This name is reasonably accurate because the function rewrites and reconstructs the URI based on certain conditions (like fragments and queries). It captures the idea of modifying the URI, though it doesn't emphasize the detailed operations explicitly.
+
+**Function Name 4: resolveandinsertqueries**  
+C1: 5. This name is the most descriptive, indicating that the method resolves the URI and inserts queries into it. It accurately captures the two main functionalities present in the method—handling the resolution of queries and URI manipulation, making it clear for readers of the code.
+
+
+-----------------样本：12 -----------------
+idx: 12
+code:
+public String XXXXX() {
+    return new StringBuilder()
+            .append(this.minX).append(" ")
+            .append(this.minY).append(" ")
+            .append(this.width).append(" ")
+            .append(this.height)
+            .toString();
+}
+reasons:
+To evaluate the candidate function names based on the provided code snippet, let's first summarize what the method does. 
+
+### Code Summary
+The method constructs and returns a formatted string representation of an object containing minimum x and y coordinates, width, and height, likely representing a rectangular area or bounding box.
+
+### Candidate Function Names Evaluation
+
+**Function Name 1: valueStr**  
+C1: 2. The name "valueStr" is vague and generic, not conveying any specific meaning about what value is being represented. It doesn't specify that the function is returning a formatted string of a rectangular area, which reduces its semantic accuracy.
+
+**Function Name 2: tomap**  
+C1: 1. The name "tomap" suggests a conversion to a map representation, which is misleading in this context. The function does not deal with mapping in the traditional sense, making this a very poor choice.
+
+**Function Name 3: getformattedrect**  
+C1: 4. The name "getformattedrect" is fairly descriptive and implies that the function retrieves a formatted version of a rectangle's dimensions. However, it could be considered slightly long and could benefit from a clearer naming convention regarding the output format.
+
+**Function Name 4: getboundingboxstring**  
+C1: 5. The name "getboundingboxstring" is precise, indicating that the function retrieves a string representation of a bounding box. It accurately describes the functionality of the method and follows a clear naming convention.
+
+### Summary of Evaluations
+- **Function Name 1: valueStr**  
+C1: 2. The name is vague and does not imply what the function does related to rectangular dimensions.
+
+- **Function Name 2: tomap**  
+C1: 1. This name is misleading as it suggests a map conversion that is not relevant to the method's functionality.
+
+- **Function Name 3: getformattedrect**  
+C1: 4. The name is mostly descriptive, indicating format retrieval for a rectangle, though it could be slightly clearer.
+
+- **Function Name 4: getboundingboxstring**  
+C1: 5. This name accurately and clearly represents the method's purpose, making it an excellent choice.
+
+
+-----------------样本：13 -----------------
+idx: 13
+code:
+public void XXXXX(String name) {
+    Preconditions.checkArgument(name != null && !name.isEmpty(), "Parameter 'name' must not be [" + name + "]");
+    commands.remove(name);
+}
+reasons:
+Let's evaluate the provided function code snippet and the candidate function names based on the criteria given.
+
+### Code Summary:
+The provided method checks if the input `name` is not null or empty and then removes a command associated with that name from a collection.
+
+**Function Name 1: unregister**  
+C1: 3. The name "unregister" suggests the removal of a subscription or registration, which is somewhat related but does not clearly indicate that it specifically refers to removing a command by its name. While it’s not completely misleading, it lacks specificity about what is being unregistered.
+
+**Function Name 2: removecommand**  
+C1: 4. This name clearly indicates that a command is being removed, aligning well with the method's functionality. However, it could benefit from indicating that the removal is based on a name. The name is clear and follows naming conventions well, but it’s not fully precise.
+
+**Function Name 3: removecommand**  
+C1: 4. This is identical to Function Name 2 and thus has the same evaluation. It accurately describes the action taken within the method and is clear and readable.
+
+**Function Name 4: removecommandbyname**  
+C1: 5. This name provides a precise description of the functionality, clearly indicating that it involves removing a command based on its name. It is clear, follows naming conventions, and is the most descriptive option available, making it an excellent choice.
+
+### Summary of Evaluations:
+- **Function Name 1: unregister**  
+  C1: 3. Indicates general removal but lacks clarity on what is being removed.
+
+- **Function Name 2: removecommand**  
+  C1: 4. Describes the action well but could specify 'by name' for clarity.
+
+- **Function Name 3: removecommand**  
+  C1: 4. Same as Function Name 2; accurately reflects the method's action.
+
+- **Function Name 4: removecommandbyname**  
+  C1: 5. Precise, clear, and indicates exactly what the method does.
+
+
+-----------------样本：14 -----------------
+idx: 14
+code:
+public String XXXXX() {
+    flattenAsMap();
+    if (source.isObject() || isObjectifiableArray()) {
+        return flattenedMap.toString(printMode);
+    } else {
+        return javaObj2Json(flattenedMap.get(ROOT));
+    }
+}
+reasons:
+To evaluate the candidate function names based on the provided code snippet, I will first summarize what the method does.
+
+### Method Summary
+The method checks if a source is an object or an objectifiable array and then either converts the flattened map to a string representation based on a specified print mode or serializes it to JSON format.
+
+### Candidate Function Names Evaluations
+
+**Function Name 1: flatten**  
+**C1: 3.** The name "flatten" suggests that it involves flattening a data structure, which is part of what this method does (the call to `flattenAsMap()`). However, it does not capture the full functionality of the method, particularly the serialization aspect. Thus, it is somewhat descriptive but not ideal.
+
+**Function Name 2: serialize**  
+**C1: 4.** The name "serialize" is clear and accurately reflects that the method can transform data into a string format, either for printing or JSON representation. While a bit generic, it primarily conveys a significant part of the method's functionality, making it mostly accurate.
+
+**Function Name 3: serialize**  
+**C1: 4.** This is a repeat of Function Name 2, so the evaluation remains the same. It accurately describes the method's purpose of converting data structures into a string format, such as JSON.
+
+**Function Name 4: tojsontostring**  
+**C1: 5.** The name "tojsontostring" is precise and clear, indicating that the output of the function is a JSON string. It explicitly conveys that the method is converting data to a JSON string format, which is an essential part of its functionality, making it an excellent choice.
+
+### Summary of Evaluations
+1. **Function Name 1: flatten**  
+   **C1: 3.** Somewhat descriptive but does not encompass the entire method functionality.
+
+2. **Function Name 2: serialize**  
+   **C1: 4.** Clear and reflective of the method's main functionality, though slightly generic.
+
+3. **Function Name 3: serialize**  
+   **C1: 4.** Same as Function Name 2; accurately describes the serialization aspect.
+
+4. **Function Name 4: tojsontostring**  
+   **C1: 5.** Precise and descriptive of the method’s output, excellent naming choice.
+
+
+-----------------样本：15 -----------------
+idx: 15
+code:
+@DoesServiceRequest
+public final String XXXXX(
+    final URI source,
+    final AccessCondition sourceAccessCondition,
+    final AccessCondition destinationAccessCondition,
+    FileRequestOptions options,
+    OperationContext opContext
+) throws StorageException, URISyntaxException {
+    if (opContext == null) {
+        opContext = new OperationContext();
+    }
+
+    this.getShare().assertNoSnapshot();
+    opContext.initialize();
+    options = FileRequestOptions.populateAndApplyDefaults(options, this.fileServiceClient);
+
+    return ExecutionEngine.executeWithRetry(
+        this.fileServiceClient,
+        this,
+        this.startCopyImpl(source, sourceAccessCondition, destinationAccessCondition, options),
+        options.getRetryPolicyFactory(),
+        opContext
+    );
+}
+reasons:
+Let's evaluate the function names based on the provided code snippet.
+
+**Function Name 1: startCopy**  
+**C1: 5.** This name accurately describes what the method does: it initiates the process of copying some data from a source to a destination. The name is clear, concise, and follows commonly accepted naming conventions, making it easy for other developers to understand at a glance.
+
+**Function Name 2: getfiles**  
+**C1: 2.** This name is misleading because the function does not retrieve files; it starts a copying operation. The name is vague and generic, lacking any indication of its actual functionality which is primarily about starting a copy process rather than getting files.
+
+**Function Name 3: move**  
+**C1: 3.** While "move" suggests transferring data, this method appears to perform a copy operation rather than a move operation. It may cause confusion since moving typically implies removing the source, whereas this function retains it. This name is somewhat descriptive but not accurate in this context.
+
+**Function Name 4: executeservicerequest**  
+**C1: 4.** This name reflects that the method executes a service request, which it indeed does, especially with the use of `ExecutionEngine.executeWithRetry`. However, it is a bit overly verbose and lacks specificity regarding the operation being performed (i.e., starting a copy), so while it is clear and mostly accurate, it isn't as precise as "startCopy."
+
+In summary, here are the evaluations for each function name:
+
+1. **Function Name 1: startCopy**  
+   **C1: 5.** Accurately describes the copying operation, clear and concise.  
+
+2. **Function Name 2: getfiles**  
+   **C1: 2.** Misleading name, indicates retrieval rather than initiation of a copy.  
+
+3. **Function Name 3: move**  
+   **C1: 3.** Somewhat descriptive, but implies a different operation than copy.  
+
+4. **Function Name 4: executeservicerequest**  
+   **C1: 4.** Reflects the execution aspect, but is less precise about the copying operation.
+
+
+-----------------样本：16 -----------------
+idx: 16
+code:
+@Override
+public void XXXXX(String tagFunction Name, int value, Map attributes) {
+    addTag(tagFunction Name, String.valueOf(value), attributes);
+}
+reasons:
+**Function Name 1: addTag**  
+C1: 5. The name "addTag" accurately and clearly describes what the method does; it indicates that the method is responsible for adding a tag with the specified name and value along with associated attributes. The name is both precise and idiomatic in software development, aligning well with typical naming conventions.
+
+**Function Name 2: starttag**  
+C1: 3. While "starttag" hints at the initialization of a tag, it does not capture the essence of adding a tag with a specific value and attributes. The term is somewhat descriptive but does not accurately represent the function's action, which is more about the addition of a tag than just starting it.
+
+**Function Name 3: startelement**  
+C1: 2. The name "startelement" is vague and misleading, as it suggests initiating an element rather than adding a tag. This does not accurately reflect the functionality of the method, leading to confusion about what the method actually does.
+
+**Function Name 4: processtagwithattributes**  
+C1: 4. "processtagwithattributes" is quite descriptive and suggests that the function involves processing a tag with associated attributes. However, it is slightly verbose and doesn’t capture the simplicity of the action (which is specifically adding a tag), making it less idiomatic compared to other options like "addTag."
+
+
+-----------------样本：17 -----------------
+idx: 17
+code:
+private Object XXXXX() {
+    return dataPosition < dataSize && data[dataPosition] != null ? data[dataPosition].value : null;
+}
+reasons:
+Let's evaluate each of the candidate function names based on the provided code snippet.
+
+### Code Snippet Analysis
+The function checks if the current `dataPosition` is valid (i.e., within bounds of the `data` array and that the corresponding entry is not null). If both conditions are satisfied, it returns the `value` of the object at the `dataPosition`. If not, it returns null.
+
+### Candidate Function Names Evaluation
+
+**Function Name 1: peek**  
+C1: 5. The name "peek" accurately describes the functionality of the method, which looks at the current position in the data without modifying it. It's a common term used in data structures for retrieving a value without removing it. The name is clear and idiomatic.
+
+**Function Name 2: getvalue**  
+C1: 4. The name "getvalue" is fairly descriptive, indicating that the method retrieves a value. However, it lacks specificity about where the value is coming from (the data array), which is why it doesn't achieve the same level of clarity as "peek." Overall, it's a good name, but not the most precise.
+
+**Function Name 3: getdatavalue**  
+C1: 3. While "getdatavalue" indicates that a value is being retrieved from data, the term is somewhat long and awkward. It does provide some specificity about where the value is sourced, but the name could be simplified. It's somewhat descriptive but not ideal in terms of readability and naming style.
+
+**Function Name 4: getdatavalue**  
+C1: 3. This is the same as Function Name 3, and the evaluation remains the same. Therefore, it also receives a score of 3 for similar reasons: it's somewhat descriptive but lacks clarity and conciseness compared to other options.
+
+### Summary of Evaluations
+- **Function Name 1: peek**  
+C1: 5. It accurately describes the method's functionality and is clear, idiomatic, and concise.
+  
+- **Function Name 2: getvalue**  
+C1: 4. It is fairly descriptive and clear but lacks specificity about the source of the value.
+
+- **Function Name 3: getdatavalue**  
+C1: 3. While providing some information about the source, it is long and less clear than optimal.
+
+- **Function Name 4: getdatavalue**  
+C1: 3. Same as Function Name 3, receiving the same score for the same reasons.
+
+
+-----------------样本：18 -----------------
+idx: 18
+code:
+@DontLabel
+public Rule XXXXX(final String characters) {
+    Objects.requireNonNull(characters);
+    return anyOf(characters.toCharArray());
+}
+reasons:
+Given the code snippet provided, let's first summarize what the method does. The method takes a string of characters as input, ensures that the input is not null, and then converts the characters of the string into a character array to be used in a method called `anyOf`, which presumably returns a rule based on those characters.
+
+Now, let's evaluate the candidate function names:
+
+**Function Name 1: anyOf**  
+C1: 5. The name "anyOf" directly corresponds to the functionality of the method as it returns a rule based on the characters passed in. It is precise and idiomatic, matching the expected behavior of this method.
+
+**Function Name 2: withcharacters**  
+C1: 3. This name indicates that the function deals with characters, but it is vague and does not specifically indicate what the function does with those characters. It does not clearly capture the rule-creating aspect of the method, making it somewhat descriptive but not ideal.
+
+**Function Name 3: startwith**  
+C1: 2. The name "startwith" is misleading as it might suggest that the function checks for a prefix or beginning character of some sort, which is not what the method does. It is not descriptive of the actual functionality, resulting in a poor match.
+
+**Function Name 4: wrapcharacterstoarray**  
+C1: 4. This name accurately describes part of the function's behavior (converting characters to an array), but it doesn't explicitly communicate the intent of creating a rule from those characters. While it is clear and mostly accurate, it lacks a certain precision that ties it directly to the method's ultimate purpose.
+
+Overall, here's the recap:
+
+- **Function Name 1: anyOf**  
+C1: 5. Directly reflects the function's purpose and is idiomatic.
+
+- **Function Name 2: withcharacters**  
+C1: 3. Somewhat descriptive of handling characters but lacks specificity about its functionality.
+
+- **Function Name 3: startwith**  
+C1: 2. Misleading and unrelated to the actual purpose of the method.
+
+- **Function Name 4: wrapcharacterstoarray**  
+C1: 4. Accurately describes part of the function's behavior but lacks clarity on the overall intent.
+
+
+-----------------样本：19 -----------------
+idx: 19
+code:
+public boolean XXXXX() {
+    Object okValue = get("ok");
+
+    if (okValue instanceof Boolean) {
+        return (Boolean) okValue;
+    } else if (okValue instanceof Number) {
+        return ((Number) okValue).intValue() == 1;
+    } else {
+        return false;
+    }
+}
+reasons:
+**Function Name 1: ok**  
+C1: 2. This name is vague and does not provide any indication of what the function does. While "ok" may suggest a check for a valid state or value, it does not imply the functionality of returning a Boolean based on the type of a retrieved value. 
+
+**Function Name 2: query**  
+C1: 2. The name "query" is overly generic and does not accurately reflect the specific action that the method performs. While it may imply some form of data retrieval, it fails to convey the specific logic of checking the type of the value and returning a Boolean based on certain conditions.
+
+**Function Name 3: istrue**  
+C1: 4. This name is fairly descriptive and gives an implication of a Boolean check. It captures the essence of the functionality, as it suggests that the method is determining a true or false value. However, it does not clarify that the method also checks for the type of the returned value, which could enhance clarity.
+
+**Function Name 4: checkiftrue**  
+C1: 5. This name is precise and clear, indicating that the function is checking whether a certain condition evaluates to true. It effectively summarizes the method's purpose and aligns with common naming conventions for Boolean return methods, making it a good fit for the code's functionality. 
+
+Overall, **function names 3 and 4** are closer to capturing the functionality of the method, with "checkiftrue" being the strongest choice.
+
+
+-----------------样本：20 -----------------
+idx: 20
+code:
+public static List<String> XXXXX(String text) {
+    List<String> list = new ArrayList<>();
+
+    if (StringUtils.isNullOrEmptyTrimmed(text)) {
+        return list;
+    }
+
+    for (int i = 0; i < text.length(); i++) {
+        list.add(Character.toString(text.charAt(i)));
+    }
+
+    return list;
+}
+reasons:
+Let's evaluate each candidate function name based on the given code snippet.
+
+### Code Summary:
+The method takes a string input, checks if it is null or empty after trimming, and if not, converts each character of the string into a separate element in a list and returns that list.
+
+#### Function Name 1: `asListOfChars`
+**C1: 5. Excellent.**  
+This name accurately describes the method's functionality, as it conveys that the method converts a string into a list of characters. It is clear and follows common naming conventions in programming, making it easy for others to understand its purpose.
+
+#### Function Name 2: `tolist`
+**C1: 3. Fair.**  
+While `tolist` suggests that the method converts something into a list, it is too vague since it does not specify what type of data is being converted. It might be interpreted in various ways, making it less clear than other options. However, it is somewhat descriptive of the action being performed.
+
+#### Function Name 3: `tokenizetos`
+**C1: 1. Very poor.**  
+This name is misleading and does not accurately convey what the function does. "Tokenize" usually refers to splitting a string into meaningful components (like words), but this function is merely converting each character to a list. Therefore, it's unrelated and confusing.
+
+#### Function Name 4: `convertstringtolist`
+**C1: 4. Good.**  
+This name describes the functionality fairly accurately, indicating that a string is being converted to a list. It is clear and readable, though it could be slightly more concise. Still, it effectively communicates the purpose of the method.
+
+### Summary of Evaluations:
+- **Function Name 1: asListOfChars**  
+  **C1: 5. Excellent.** This name precisely indicates that a string is being transformed into a list of its characters.
+  
+- **Function Name 2: tolist**  
+  **C1: 3. Fair.** This name suggests a conversion to a list but lacks specificity about the input type.
+
+- **Function Name 3: tokenizetos**  
+  **C1: 1. Very poor.** This name does not correlate with the method's functionality, causing confusion about its actual operation.
+
+- **Function Name 4: convertstringtolist**  
+  **C1: 4. Good.** This clearly conveys the method’s purpose but is somewhat lengthy.
+
+
+-----------------样本：21 -----------------
+idx: 21
+code:
+public void XXXXX() {
+    repl.set(true);
+    String line = null;
+
+    while (repl.get() && ((line = console.readLine()) != null)) {
+        exec(line);
+    }
+}
+reasons:
+Let's evaluate the provided function code snippet and the candidate function names based on the criteria given.
+
+### Code Summary:
+The provided method repeatedly reads lines from the console and executes them as long as a certain condition in `repl` is true.
+
+### Function Names Evaluations
+
+**Function Name 1: start**  
+C1: 3. While "start" suggests beginning a process, it doesn't clearly convey that the method continues to read and execute commands until a condition is no longer met. This name could imply a one-time action instead of an ongoing process.
+
+**Function Name 2: run**  
+C1: 4. "Run" is a strong choice as it indicates ongoing activity, specifically executing the commands read from the console. However, it may not suggest the conditional aspect of the execution loop clearly.
+
+**Function Name 3: run**  
+C1: 4. Same evaluation as above. "Run" effectively captures the essence of the method. It is clear, understandable, and follows common conventions for similar methods, although it's somewhat generic.
+
+**Function Name 4: runrepl**  
+C1: 5. "Runrepl" provides an excellent indication of what the method does. It clearly communicates that the method runs a read-eval-print loop, which relates directly to the functionality of repeatedly executing console input as long as the condition is true.
+
+### Summary of Evaluations
+1. **Function Name 1: start**  
+   C1: 3. Does not clearly express ongoing execution; implies a one-time start action.
+   
+2. **Function Name 2: run**  
+   C1: 4. Indicates activity and command execution but lacks specificity regarding the conditional nature.
+
+3. **Function Name 3: run**  
+   C1: 4. Same as above—clear but somewhat generic.
+
+4. **Function Name 4: runrepl**  
+   C1: 5. Precisely and clearly conveys ongoing execution in the context of a read-eval-print loop, making it the best option.
+
+
+-----------------样本：22 -----------------
+idx: 22
+code:
+URI XXXXX() {
+    StringBuilder builder = new StringBuilder();
+
+    if (defined(this.scheme)) {
+        builder.append(this.scheme);
+        builder.append(":");
+    }
+
+    if (defined(this.authority)) {
+        builder.append("//");
+        builder.append(this.authority);
+    }
+
+    if (defined(this.path)) {
+        builder.append(this.path);
+    }
+
+    if (defined(this.query)) {
+        builder.append("?");
+        builder.append(this.query);
+    }
+
+    if (defined(this.fragment)) {
+        builder.append("#");
+        builder.append(this.fragment);
+    }
+
+    String rawURI = builder.toString();
+    return URI.create(rawURI);
+}
+reasons:
+**Function Name 1: toURI**  
+C1: 4. The name `toURI` accurately describes the functionality of the method, which is to construct a URI from its components and return it. It is clear and follows common naming conventions for transformation methods (from components to a URI), making it mostly descriptive.
+
+**Function Name 2: touri**  
+C1: 2. The name `touri` is somewhat vague and its meaning isn't immediately clear compared to `toURI`. While it indicates a relationship to URI, it lacks the clarity and readability expected in function naming conventions. It might confuse readers unfamiliar with the abbreviation.
+
+**Function Name 3: tour**  
+C1: 1. The name `tour` is completely unrelated to the functionality of the method. It gives no indication that the method is related to creating a URI, making it misleading and not descriptive of what the function does at all.
+
+**Function Name 4: generateuri**  
+C1: 3. The name `generateuri` somewhat describes the functionality, as it implies the creation of a URI. However, it lacks the clarity and conventional use of capitalization (e.g. `generateURI`) that would make it clearer to readers. It is descriptive but could be improved for readability.
+
+
+-----------------样本：23 -----------------
+idx: 23
+code:
+public static String XXXXX(String key, String tag) {
+    return new StringBuilder(key)
+            .append(SIZE_SP)
+            .append(tag)
+            .toString();
+}
+reasons:
+### Code Snippet Summary:
+The function takes two parameters, `key` and `tag`, and concatenates them with a constant `SIZE_SP` in between, returning the resulting string.
+
+---
+
+**Function Name 1: joinSizeTagToKey**  
+C1: 5. The name accurately describes the function's action of joining a size-related tag to a key, is clear and follows common naming conventions in programming, making it easy to understand its purpose.
+
+---
+
+**Function Name 2: createsession**  
+C1: 1. This name is misleading as it suggests that the method is related to creating a session, which is unrelated to the actual functionality of combining a key and a tag.
+
+---
+
+**Function Name 3: sizekeywith**  
+C1: 3. While this name hints at the involvement of size and key, it is somewhat vague and does not clearly convey the action of joining or concatenating the strings. It could be improved for better clarity.
+
+---
+
+**Function Name 4: buildkeywithtag**  
+C1: 4. This name suggests that the method is building a key with a tag, which is mostly accurate in terms of functionality. However, it doesn’t explicitly mention the concept of size or the action of joining, making it slightly less precise than the first name. 
+
+--- 
+
+In summary, "joinSizeTagToKey" is the most descriptive and accurate, while "createsession" fails to represent the function's purpose entirely. "sizekeywith" and "buildkeywithtag" are closer but could benefit from clarification.
+
+
+-----------------样本：24 -----------------
+idx: 24
+code:
+public Thl XXXXX(final Consumer<TemplateEngine> callback) {
+    requireNonNull(callback, "Callback required.");
+    return doWith((e, c) -> callback.accept(e));
+}
+reasons:
+Let's evaluate each candidate function name based on the provided code snippet. 
+
+### Code snippet summary:
+The function accepts a `Consumer<TemplateEngine>` callback, checks that the callback is not null, and then invokes a method called `doWith`, passing a lambda expression that consumes a `TemplateEngine`.
+
+**Function Name 1: doWith**
+- **C1: 4.** While "doWith" accurately describes the action of performing some operation using the provided callback, it lacks specificity regarding the type of operation being performed with `TemplateEngine`. It is clear and readable but could be more descriptive about the effect of the method instead of just the action.
+  
+**Function Name 2: before**
+- **C1: 2.** This name is vague and does not accurately represent the function's purpose. "before" implies a timing aspect of execution, but the method does not indicate any ordering or conditional execution relative to other operations, making this name misleading.
+
+**Function Name 3: onsuccess**
+- **C1: 3.** This name suggests that the method runs a callback upon the successful completion of some operation. While it hints at the behavior of the callback, it does not clearly indicate how the `TemplateEngine` relates to the success state, leading to a somewhat disconnected and not fully accurate description of functionality. 
+
+**Function Name 4: callbackwrapper**
+- **C1: 4.** This name indicates that the function serves as a wrapper for the callback function, which is true of what the method does. However, it lacks a certain elegance and could be considered verbose. It accurately describes the method's functionality but does not convey the specifics of its interaction with `TemplateEngine` effectively.
+
+### Summary
+
+1. **Function Name 1: doWith**
+   - **C1: 4.** Accurately describes the action, but could be more descriptive about the type or context of the operation.
+
+2. **Function Name 2: before**
+   - **C1: 2.** Vague and misleading; does not reflect the method's behavior.
+
+3. **Function Name 3: onsuccess**
+   - **C1: 3.** Suggests completion, but lacks clarity regarding how it relates to `TemplateEngine`.
+
+4. **Function Name 4: callbackwrapper**
+   - **C1: 4.** Clearly indicates the function's role, but could be more succinct.
+
+

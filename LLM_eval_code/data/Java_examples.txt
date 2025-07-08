@@ -1,0 +1,460 @@
+N0.1========================================================================
+
+public Rule XXXXX(final int nrCycles) {
+    Preconditions.checkArgument(nrCycles >= 0, "illegal repetition number specified (" + nrCycles + "), must be 0 or greater");
+    return range(Range.atMost(nrCycles));
+}
+
+猜测的函数名1: max
+猜测的函数名2: cycle
+猜测的函数名3: cyclic
+猜测的函数名4: createrulewithrepetition
+N0.2========================================================================
+
+public static Characters XXXXX(final char... chars) {
+    final int length = chars.length;
+    if (length == 0) {
+        return ALL;
+    }
+
+    final char[] array = Arrays.copyOf(chars, length);
+    Arrays.sort(array);
+    return new Characters(true, array);
+}
+
+猜测的函数名1: allBut
+猜测的函数名2: of
+猜测的函数名3: of
+猜测的函数名4:characters
+N0.3========================================================================
+
+private boolean XXXXX(RequestContext requestContext, ConfigValue<Long> timeout) {
+    // return false if no timeout configured or per-request timeout already specified in request context
+    return timeout.getValue() != null && timeout.getValue() > 0 && !hasRequestContextTimeout(requestContext);
+}
+
+猜测的函数名1: needApplyTaskTimeout
+猜测的函数名2: checktimeout
+猜测的函数名3: hastimeout
+猜测的函数名4: istimeoutsetinrequestcontext
+N0.4========================================================================
+
+public Jdbi3 XXXXX(Consumer<Jdbi> configurer) {
+    return doWith((jdbi, conf) -> configurer.accept(jdbi));
+}
+
+猜测的函数名1: doWith
+猜测的函数名2: configure
+猜测的函数名3: configure
+猜测的函数名4:configurejdbi
+N0.5========================================================================
+
+public boolean XXXXX(final URI uri) {
+    for (final MigrationLoader loader : loaders) {
+        if (loader.accept(uri)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+猜测的函数名1: accept
+猜测的函数名2: load
+猜测的函数名3: canload
+猜测的函数名4:ismigrationloaderexistsforuri
+
+N0.6========================================================================
+
+public void XXXXX(String name, Command command) {
+    Preconditions.checkArgument(name != null && !name.isEmpty(), "Parameter 'name' must not be [" + name + "]");
+    Preconditions.checkArgument(command != null, "Parameter 'command' must not be [" + command + "]");
+    commands.put(name, command);
+}
+猜测的函数名1:  register
+猜测的函数名2: addcommand
+猜测的函数名3: addcommand
+猜测的函数名4:addcommandtomap
+N0.7========================================================================
+
+private void XXXXX(Collection<FileDescriptor> target, Map<String, FileDescriptor> after) {
+    Map<String, FileDescriptor> before = getCache(target);
+    Map<String, FileDescriptor> all = new HashMap<>();
+    all.putAll(before);
+    all.putAll(after);
+
+    for (Map.Entry<String, FileDescriptor> entry : all.entrySet()) {
+        String key = entry.getKey();
+        FileDescriptor fileDescriptor = entry.getValue();
+        boolean hasBefore = before.containsKey(key);
+        boolean hasAfter = after.containsKey(key);
+
+        if (hasBefore && !hasAfter) {
+            target.remove(fileDescriptor);
+        } else if (!hasBefore && hasAfter) {
+            target.add(fileDescriptor);
+        }
+    }
+}
+
+猜测的函数名1: sync
+猜测的函数名2: updatecache
+猜测的函数名3: mergecache
+猜测的函数名4:updatetargetcollection
+N0.8========================================================================
+
+public static void XXXXX(final String name, final boolean condition, final SingleResultCallback<?> callback) {
+    if (!condition) {
+        IllegalStateException exception = new IllegalStateException("state should be: " + name);
+        callback.onResult(null, exception);
+        throw exception;
+    }
+}
+
+猜测的函数名1: isTrue
+猜测的函数名2: checkstate
+猜测的函数名3: checkstate
+猜测的函数名4:validateconditionandcallback
+N0.9========================================================================
+
+@SafeVarargs
+public static <T> T[]XXXXX(final T[] array1, final T... array2) {
+    if (isEmpty(array1) && isEmpty(array2)) {
+        return null;
+    }
+
+    if (isEmpty(array1)) {
+        return array2;
+    }
+
+    if (isEmpty(array2)) {
+        return array1;
+    }
+
+    final Class<?> type1 = array1.getClass().getComponentType();
+
+    @SuppressWarnings("unchecked") // OK, because array is of type T
+    final T[] joinedArray = (T[]) Array.newInstance(type1, array1.length + array2.length);
+
+    int index = 0;
+    for (T item : array1) {
+        joinedArray[index++] = item;
+    }
+
+    for (T item : array2) {
+        joinedArray[index++] = item;
+    }
+
+    return joinedArray;
+}
+
+猜测的函数名1:  join
+猜测的函数名2: concat
+猜测的函数名3: concat
+猜测的函数名4:mergearrays
+N0.10========================================================================
+
+private static String XXXXX(String service, String base) {
+    if (base == null) {
+        base = DEFAULT_DNS;
+    }
+    return String.format(DNS_NAME_FORMAT, service, base);
+}
+
+猜测的函数名1: getDNS
+猜测的函数名2: naturalname
+猜测的函数名3: getdnsname
+猜测的函数名4: generatednsname
+N0.11========================================================================
+
+public StringClauses XXXXX(String existingKey, String newKey, String newValue) throws IllegalArgumentException {
+    return insertBeforeImpl(existingKey, newKey, newValue);
+}
+
+猜测的函数名1: insertBefore
+猜测的函数名2: replace
+猜测的函数名3: addclause
+猜测的函数名4:updatekeyvalue
+N0.12========================================================================
+
+public URI XXXXX(final URI uri) throws URISyntaxException, StorageException {
+    final String origRawQuery = uri.getRawQuery();
+    final String rawFragment = uri.getRawFragment();
+    final String uriString = uri.resolve(uri).toASCIIString();
+    final HashMap<String, String[]> origQueryMap = PathUtility.parseQueryString(origRawQuery);
+
+    // Try/Insert original queries to map
+    for (final Entry<String, String[]> entry : origQueryMap.entrySet()) {
+        for (final String val : entry.getValue()) {
+            this.insertKeyValue(entry.getKey(), val);
+        }
+    }
+
+    final StringBuilder retBuilder = new StringBuilder();
+
+    // has a fragment
+    if (Utility.isNullOrEmpty(origRawQuery) && !Utility.isNullOrEmpty(rawFragment)) {
+        final int bangDex = uriString.indexOf(' ');
+        retBuilder.append(uriString.substring(0, bangDex));
+    } else if (!Utility.isNullOrEmpty(origRawQuery)) {
+        // has a query
+        final int queryDex = uriString.indexOf(' ');
+        retBuilder.append(uriString.substring(0, queryDex));
+    } else {
+        // no fragment or query
+        retBuilder.append(uriString);
+        if (uri.getRawPath().length() <= 0) {
+            retBuilder.append("/");
+        }
+    }
+
+    final String finalQuery = this.toString();
+
+    if (finalQuery.length() > 0) {
+        retBuilder.append("?");
+        retBuilder.append(finalQuery);
+    }
+
+    if (!Utility.isNullOrEmpty(rawFragment)) {
+        retBuilder.append("#");
+        retBuilder.append(rawFragment);
+    }
+
+    return new URI(retBuilder.toString());
+}
+
+猜测的函数名1: addToURI
+猜测的函数名2: convert
+猜测的函数名3: rewrite
+猜测的函数名4:resolveandinsertqueries
+N0.13========================================================================
+
+public String XXXXX() {
+    return new StringBuilder()
+            .append(this.minX).append(" ")
+            .append(this.minY).append(" ")
+            .append(this.width).append(" ")
+            .append(this.height)
+            .toString();
+}
+
+猜测的函数名1: valueStr
+猜测的函数名2: tomap
+猜测的函数名3: getformattedrect
+猜测的函数名4:getboundingboxstring
+N0.14========================================================================
+
+public void XXXXX(String name) {
+    Preconditions.checkArgument(name != null && !name.isEmpty(), "Parameter 'name' must not be [" + name + "]");
+    commands.remove(name);
+}
+
+猜测的函数名1: unregister
+猜测的函数名2: removecommand
+猜测的函数名3: removecommand
+猜测的函数名4:removecommandbyname
+N0.15========================================================================
+
+public String XXXXX() {
+    flattenAsMap();
+    if (source.isObject() || isObjectifiableArray()) {
+        return flattenedMap.toString(printMode);
+    } else {
+        return javaObj2Json(flattenedMap.get(ROOT));
+    }
+}
+
+猜测的函数名1: flatten
+猜测的函数名2: serialize
+猜测的函数名3: serialize
+猜测的函数名4:tojsontostring
+N0.16========================================================================
+
+@DoesServiceRequest
+public final String XXXXX(
+    final URI source,
+    final AccessCondition sourceAccessCondition,
+    final AccessCondition destinationAccessCondition,
+    FileRequestOptions options,
+    OperationContext opContext
+) throws StorageException, URISyntaxException {
+    if (opContext == null) {
+        opContext = new OperationContext();
+    }
+
+    this.getShare().assertNoSnapshot();
+    opContext.initialize();
+    options = FileRequestOptions.populateAndApplyDefaults(options, this.fileServiceClient);
+
+    return ExecutionEngine.executeWithRetry(
+        this.fileServiceClient,
+        this,
+        this.startCopyImpl(source, sourceAccessCondition, destinationAccessCondition, options),
+        options.getRetryPolicyFactory(),
+        opContext
+    );
+}
+
+猜测的函数名1: startCopy
+猜测的函数名2: getfiles
+猜测的函数名3: move
+猜测的函数名4:executeservicerequest
+N0.17========================================================================
+
+@Override
+public void XXXXX(String tagName, int value, Map attributes) {
+    addTag(tagName, String.valueOf(value), attributes);
+}
+
+猜测的函数名1: addTag
+猜测的函数名2: starttag
+猜测的函数名3: startelement
+猜测的函数名4:processtagwithattributes
+N0.18========================================================================
+
+private Object XXXXX() {
+    return dataPosition < dataSize && data[dataPosition] != null ? data[dataPosition].value : null;
+}
+
+猜测的函数名1: peek
+猜测的函数名2: getvalue
+猜测的函数名3: getdatavalue
+猜测的函数名4:getdatavalue
+N0.19========================================================================
+@DontLabel
+public Rule XXXXX(final String characters) {
+    Objects.requireNonNull(characters);
+    return anyOf(characters.toCharArray());
+}
+
+猜测的函数名1: anyOf
+猜测的函数名2: withcharacters
+猜测的函数名3: startwith
+猜测的函数名4:wrapcharacterstoarray
+N0.20========================================================================
+
+public boolean XXXXX() {
+    Object okValue = get("ok");
+
+    if (okValue instanceof Boolean) {
+        return (Boolean) okValue;
+    } else if (okValue instanceof Number) {
+        return ((Number) okValue).intValue() == 1;
+    } else {
+        return false;
+    }
+}
+
+猜测的函数名1:  ok
+猜测的函数名2: query
+猜测的函数名3: istrue
+猜测的函数名4:checkiftrue
+N0.21========================================================================
+
+public static List<String> XXXXX(String text) {
+    List<String> list = new ArrayList<>();
+
+    if (StringUtils.isNullOrEmptyTrimmed(text)) {
+        return list;
+    }
+
+    for (int i = 0; i < text.length(); i++) {
+        list.add(Character.toString(text.charAt(i)));
+    }
+
+    return list;
+}
+
+猜测的函数名1: asListOfChars
+猜测的函数名2: tolist
+猜测的函数名3: tokenizetos
+猜测的函数名4:convertstringtolist
+N0.22========================================================================
+
+public void XXXXX() {
+    repl.set(true);
+    String line = null;
+
+    while (repl.get() && ((line = console.readLine()) != null)) {
+        exec(line);
+    }
+}
+
+猜测的函数名1: start
+猜测的函数名2: run
+猜测的函数名3: run
+猜测的函数名4:runrepl
+N0.23========================================================================
+
+URI XXXXX() {
+    StringBuilder builder = new StringBuilder();
+
+    if (defined(this.scheme)) {
+        builder.append(this.scheme);
+        builder.append(":");
+    }
+
+    if (defined(this.authority)) {
+        builder.append("//");
+        builder.append(this.authority);
+    }
+
+    if (defined(this.path)) {
+        builder.append(this.path);
+    }
+
+    if (defined(this.query)) {
+        builder.append("?");
+        builder.append(this.query);
+    }
+
+    if (defined(this.fragment)) {
+        builder.append("#");
+        builder.append(this.fragment);
+    }
+
+    String rawURI = builder.toString();
+    return URI.create(rawURI);
+}
+
+猜测的函数名1: toURI
+猜测的函数名2: touri
+猜测的函数名3: tour
+猜测的函数名4:generateuri
+N0.24========================================================================
+
+public static String XXXXX(String key, String tag) {
+    return new StringBuilder(key)
+            .append(SIZE_SP)
+            .append(tag)
+            .toString();
+}
+猜测的函数名1:  joinSizeTagToKey
+猜测的函数名2: createsession
+猜测的函数名3: sizekeywith tag
+猜测的函数名4:buildkeywithtag
+N0.25========================================================================
+
+public Thl XXXXX(final Consumer<TemplateEngine> callback) {
+    requireNonNull(callback, "Callback required.");
+    return doWith((e, c) -> callback.accept(e));
+}
+
+猜测的函数名1: doWith
+猜测的函数名2: before
+猜测的函数名3: onsuccess
+猜测的函数名4:callbackwrapper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

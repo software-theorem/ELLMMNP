@@ -1,0 +1,743 @@
+N0.1========================================================================
+
+def XXXXX(CNN=None, second=10, saveable=True, name='cnn', fig_idx=3119362):
+    import matplotlib.pyplot as plt
+    
+    # tl.logging.info(CNN.shape)    # (5, 5, 3, 64) # exit()
+    n_mask = CNN.shape[3]
+    n_row = CNN.shape[0]
+    n_col = CNN.shape[1]
+    n_color = CNN.shape[2]
+    
+    row = int(np.sqrt(n_mask))
+    col = int(np.ceil(n_mask / row))
+    
+    plt.ion()  # active mode
+    fig = plt.figure(fig_idx)
+    count = 1
+    
+    for _ir in range(1, row + 1):
+        for _ic in range(1, col + 1):
+            if count > n_mask:
+                break
+            fig.add_subplot(col, row, count)
+            
+            # tl.logging.info(CNN[:,:,:,count-1].shape, n_row, n_col)   # (5, 1, 32) 5 5 # exit()
+            # plt.imshow(
+            #         np.reshape(CNN[count-1,:,:,:], (n_row, n_col)),
+            #         cmap='gray', interpolation="nearest")     # theano
+            
+            if n_color == 1:
+                plt.imshow(np.reshape(CNN[:, :, :, count - 1], (n_row, n_col)),
+                           cmap='gray', interpolation="nearest")
+            elif n_color == 3:
+                plt.imshow(np.reshape(CNN[:, :, :, count - 1], (n_row, n_col, n_color)),
+                           cmap='gray', interpolation="nearest")
+            else:
+                raise Exception("Unknown n_color")
+            
+            plt.gca().xaxis.set_major_locator(plt.NullLocator())  # distable tick
+            plt.gca().yaxis.set_major_locator(plt.NullLocator())
+            
+            count = count + 1
+    
+    if saveable:
+        plt.savefig(name + '.pdf', format='pdf')
+    else:
+        plt.draw()
+        plt.pause(second)
+
+猜测的函数名1: CNN2d
+猜测的函数名2: plotcn
+猜测的函数名3: plotcnn
+猜测的函数名4: visualize_cnn
+N0.2========================================================================
+
+@llrule(loc, lambda parser: [kind])
+def XXXXX(kind, loc=None):
+    def rule(parser):
+        result = parser._accept(kind)
+        if result is unmatched:
+            return result
+        return result.loc
+    
+    return rule
+
+猜测的函数名1: Loc
+猜测的函数名2: lazy
+猜测的函数名3: acceptrule
+猜测的函数名4:rule_definition
+N0.3========================================================================
+
+def XXXXX(self, board, layers, things, the_plot):
+    # Disappear if we've hit a bunker.
+    if self.character in the_plot['bunker_hitters']:
+        return self._teleport((-1, -1))
+    
+    # End the game if we've hit the player.
+    if self.position == things['P'].position:
+        the_plot.terminate_episode()
+        self._south(board, the_plot)
+
+猜测的函数名1:  _fly
+猜测的函数名2: pellfl
+猜测的函数名3: onhit
+猜测的函数名4: handle_collision
+N0.4========================================================================
+
+def XXXXX(cpu, dest, src):
+    # XXX bypass a capstone bug that incorrectly extends and computes operands sizes
+    # the bug has been fixed since capstone 4.0.alpha2 (commit de8dd26)
+    if src.size == 64 and src.type == 'immediate' and dest.size == 64:
+        arg1 = Operators.SEXTEND(src.read(), 32, 64)
+    else:
+        arg1 = src.read()
+
+    res = dest.write(dest.read() & arg1)
+
+    # Defined Flags: szp
+    cpu._calculate_logic_flags(dest.size, res)
+
+猜测的函数名1:AND 
+猜测的函数名2: flagsand
+猜测的函数名3: copy
+猜测的函数名4:bypasscapstonebug
+N0.5========================================================================
+
+def XXXXX(cpu, src):
+    reg_name_h = {8: 'AH', 16: 'DX', 32: 'EDX', 64: 'RDX'}[src.size]
+    reg_name_l = {8: 'AL', 16: 'AX', 32: 'EAX', 64: 'RAX'}[src.size]
+
+    dividend = Operators.CONCAT(src.size * 2, cpu.read_register(reg_name_h), cpu.read_register(reg_name_l))
+    divisor = src.read()
+
+    if isinstance(divisor, int) and divisor == 0:
+        raise DivideByZeroError()
+
+    dst_size = src.size * 2
+    divisor = Operators.SEXTEND(divisor, src.size, dst_size)
+
+    mask = (1 << dst_size) - 1
+    sign_mask = 1 << (dst_size - 1)
+
+    dividend_sign = (dividend & sign_mask) != 0
+    divisor_sign = (divisor & sign_mask) != 0
+
+    if isinstance(divisor, int):
+        if divisor_sign:
+            divisor = ((~divisor) + 1) & mask
+            divisor = -divisor
+
+    if isinstance(dividend, int):
+        if dividend_sign:
+            dividend = ((~dividend) + 1) & mask
+            dividend = -dividend
+
+    quotient = Operators.SDIV(dividend, divisor)
+
+    if isinstance(dividend, int) and isinstance(dividend, int):
+        # handle the concrete case
+        remainder = dividend - (quotient * divisor)
+    else:
+        # symbolic case -- optimize via SREM
+        remainder = Operators.SREM(dividend, divisor)
+
+    cpu.write_register(reg_name_l, Operators.EXTRACT(quotient, 0, src.size))
+    cpu.write_register(reg_name_h, Operators.EXTRACT(remainder, 0, src.size))
+
+猜测的函数名1: IDIV
+猜测的函数名2: opslogicalm
+猜测的函数名3: divideby
+猜测的函数名4:divide
+
+N0.6========================================================================
+
+def XXXXX(cpu, dest):
+    dest.write(Operators.ITEBV(dest.size, cpu.ZF, 1, 0))
+
+猜测的函数名1: SETZ
+猜测的函数名2: opsbranchesm
+猜测的函数名3: writezero
+猜测的函数名4:conditionalwrite
+N0.7========================================================================
+
+def XXXXX(cpu, op0):
+    # TODO FIX 64Bit FIX segment
+    proc = op0.read()
+    cpu.push(cpu.PC, cpu.address_bit_size)
+    cpu.PC = proc
+
+猜测的函数名1: CALL
+猜测的函数名2: processorcall
+猜测的函数名3: cpubaseread
+猜测的函数名4:load_and_execute
+N0.8========================================================================
+
+def XXXXX(self, recipient):
+    # This may create a user account
+    recipient = Operators.EXTRACT(recipient, 0, 160)
+    address = self.address
+    
+    # FIXME for on the known addresses
+    if issymbolic(recipient):
+        logger.info("Symbolic recipient on self destruct")
+        recipient = solver.get_value(self.constraints, recipient)
+    
+    if recipient not in self.world:
+        self.world.create_account(address=recipient)
+        self.world.send_funds(address, recipient, self.world.get_balance(address))
+        self.world.delete_account(address)
+    
+    raise EndTx('SELFDESTRUCT')
+
+猜测的函数名1: SELFDESTRUCT
+猜测的函数名2: election
+猜测的函数名3: destruct
+猜测的函数名4:createandtransferfunds
+N0.9========================================================================
+
+def XXXXX(self):
+    logger.info("DFK cleanup initiated")
+
+    # this check won't detect two DFK cleanups happening from
+    # different threads extremely close in time because of
+    # non-atomic read/modify of self.cleanup_called
+    if self.cleanup_called:
+        raise Exception("attempt to clean up DFK when it has already been cleaned-up")
+
+    self.cleanup_called = True
+    self.log_task_states()
+
+    # Checkpointing takes priority over the rest of the tasks
+    # checkpoint if any valid checkpoint method is specified
+    if self.checkpoint_mode is not None:
+        self.checkpoint()
+
+    if self._checkpoint_timer:
+        logger.info("Stopping checkpoint timer")
+        self._checkpoint_timer.close()
+
+    # Send final stats
+    self.usage_tracker.send_message()
+    self.usage_tracker.close()
+
+    logger.info("Terminating flow_control and strategy threads")
+    self.flowcontrol.close()
+
+    for executor in self.executors.values():
+        if executor.managed:
+            if executor.scaling_enabled:
+                job_ids = executor.provider.resources.keys()
+                executor.scale_in(len(job_ids))
+            executor.shutdown()
+
+    self.time_completed = datetime.datetime.now()
+
+    if self.monitoring:
+        self.monitoring.send(MessageType.WORKFLOW_INFO, {
+            'tasks_failed_count': self.tasks_failed_count,
+            'tasks_completed_count': self.tasks_completed_count,
+            "time_began": self.time_began,
+            'time_completed': self.time_completed,
+            'workflow_duration': (self.time_completed - self.time_began).total_seconds(),
+            'run_id': self.run_id,
+            'rundir': self.run_dir
+        })
+
+        self.monitoring.close()
+
+    """
+    if self.logging_server is not None:
+        self.logging_server.terminate()
+        self.logging_server.join()
+
+    if self.web_app is not None:
+        self.web_app.terminate()
+        self.web_app.join()
+    """
+
+    logger.info("DFK cleanup complete")
+
+猜测的函数名1: cleanup
+猜测的函数名2: dfaserver
+猜测的函数名3: initdfk
+猜测的函数名4:dfk_initiated
+N0.10========================================================================
+
+def XXXXX(self, my_task):
+    assert my_task is not None
+    self.test()
+
+    # Acquire locks, if any.
+    for lock in self.locks:
+        mutex = my_task.workflow._get_mutex(lock)
+        if not mutex.testandset():
+            return
+
+    # Assign variables, if so requested.
+    for assignment in self.pre_assign:
+        assignment.assign(my_task, my_task)
+
+    # Run task-specific code.
+    self._on_ready_before_hook(my_task)
+    self.reached_event.emit(my_task.workflow, my_task)
+    self._on_ready_hook(my_task)
+
+    # Run user code, if any.
+    if self.ready_event.emit(my_task.workflow, my_task):
+
+        # Assign variables, if so requested.
+        for assignment in self.post_assign:
+            assignment.assign(my_task, my_task)
+
+        # Release locks, if any.
+        for lock in self.locks:
+            mutex = my_task.workflow._get_mutex(lock)
+            mutex.unlock()
+
+        self.finished_event.emit(my_task.workflow, my_task)
+
+猜测的函数名1:  _on_ready
+猜测的函数名2:taskon
+猜测的函数名3: reach
+猜测的函数名4:execute_task
+N0.11========================================================================
+
+def XXXXX(model, reaction_list=None, loopless=False, fraction_of_optimum=1.0, pfba_factor=None, processes=None):
+    if reaction_list is None:
+        reaction_ids = [r.id for r in model.reactions]
+    else:
+        reaction_ids = [r.id for r in model.reactions.get_by_any(reaction_list)]
+
+    if processes is None:
+        processes = CONFIGURATION.processes
+
+    num_reactions = len(reaction_ids)
+    processes = min(processes, num_reactions)
+
+    fva_result = DataFrame({"minimum": zeros(num_reactions, dtype=float), "maximum": zeros(num_reactions, dtype=float)}, index=reaction_ids)
+    prob = model.problem
+
+    with model:
+        # Safety check before setting up FVA.
+        model.slim_optimize(error_value=None, message="There is no optimal solution for the chosen objective!")
+
+        # Add the previous objective as a variable to the model then set it to zero.
+        # This also uses the fraction to create the lower/upper bound for the old objective.
+        # TODO: Use utility function here (fix_objective_as_constraint)?
+        if model.solver.objective.direction == "max":
+            fva_old_objective = prob.Variable("fva_old_objective", lb=fraction_of_optimum * model.solver.objective.value)
+        else:
+            fva_old_objective = prob.Variable("fva_old_objective", ub=fraction_of_optimum * model.solver.objective.value)
+
+        fva_old_obj_constraint = prob.Constraint(model.solver.objective.expression - fva_old_objective, lb=0, ub=0, name="fva_old_objective_constraint")
+        model.add_cons_vars([fva_old_objective, fva_old_obj_constraint])
+
+        if pfba_factor is not None:
+            if pfba_factor < 1.:
+                warn("The 'pfba_factor' should be larger or equal to 1.", UserWarning)
+
+            with model:
+                add_pfba(model, fraction_of_optimum=0)
+                ub = model.slim_optimize(error_value=None)
+
+                flux_sum = prob.Variable("flux_sum", ub=pfba_factor * ub)
+                flux_sum_constraint = prob.Constraint(model.solver.objective.expression - flux_sum, lb=0, ub=0, name="flux_sum_constraint")
+                model.add_cons_vars([flux_sum, flux_sum_constraint])
+
+            model.objective = Zero  # This will trigger the reset as well
+
+        for what in ("minimum", "maximum"):
+            if processes > 1:
+                # We create and destroy a new pool here in order to set the
+                # objective direction for all reactions. This creates a
+                # slight overhead but seems the most clean.
+                chunk_size = len(reaction_ids) // processes
+                pool = multiprocessing.Pool(processes, initializer=_init_worker, initargs=(model, loopless, what[:3]))
+
+                for rxn_id, value in pool.imap_unordered(_fva_step, reaction_ids, chunksize=chunk_size):
+                    fva_result.at[rxn_id, what] = value
+
+                pool.close()
+                pool.join()
+            else:
+                _init_worker(model, loopless, what[:3])
+
+                for rxn_id, value in map(_fva_step, reaction_ids):
+                    fva_result.at[rxn_id, what] = value
+
+    return fva_result[["minimum", "maximum"]]
+
+猜测的函数名1: flux_variability_analysis
+猜测的函数名2: calculate
+猜测的函数名3: getfva
+猜测的函数名4:performfva
+N0.12========================================================================
+
+def XXXXX(CASRN, AvailableMethods=False, Method=None):
+    def list_methods():
+        methods = []
+        if CASRN in GWP_data.index:
+            methods.append(IPCC100)
+            if not pd.isnull(GWP_data.at[CASRN, 'SAR 100yr']):
+                methods.append(IPCC100SAR)
+            methods.append(IPCC20)
+            methods.append(IPCC500)
+            methods.append(NONE)
+        return methods
+
+    if AvailableMethods:
+        return list_methods()
+
+    if not Method:
+        Method = list_methods()[0]
+
+    if Method == IPCC100:
+        return float(GWP_data.at[CASRN, '100yr GWP'])
+    elif Method == IPCC100SAR:
+        return float(GWP_data.at[CASRN, 'SAR 100yr'])
+    elif Method == IPCC20:
+        return float(GWP_data.at[CASRN, '20yr GWP'])
+    elif Method == IPCC500:
+        return float(GWP_data.at[CASRN, '500yr GWP'])
+    elif Method == NONE:
+        return None
+    else:
+        raise Exception('Failure in function')
+
+猜测的函数名1:  GWP
+猜测的函数名2: cip
+猜测的函数名3: gaussian
+猜测的函数名4:get_flood_risk_value
+N0.13========================================================================
+
+def XXXXX(self, location=1, normalize=True, activity_threshold=7.0, min_activity_duration=0.25,
+        initial_search_buffer=1.0, max_gap=0.25, initial_pad=0.0):
+    if location not in [-1, 1]:
+        raise ValueError("location must be -1 or 1.")
+    if not isinstance(normalize, bool):
+        raise ValueError("normalize must be a boolean.")
+    if not is_number(activity_threshold):
+        raise ValueError("activity_threshold must be a number.")
+    if not is_number(min_activity_duration) or min_activity_duration < 0:
+        raise ValueError("min_activity_duration must be a positive number")
+    if not is_number(initial_search_buffer) or initial_search_buffer < 0:
+        raise ValueError("initial_search_buffer must be a positive number")
+    if not is_number(max_gap) or max_gap < 0:
+        raise ValueError("max_gap must be a positive number.")
+    if not is_number(initial_pad) or initial_pad < 0:
+        raise ValueError("initial_pad must be a positive number.")
+
+    effect_args = []
+    if normalize:
+        effect_args.append('norm')
+    if location == -1:
+        effect_args.append('reverse')
+
+    effect_args.extend(['vad', '-t', '{:f}'.format(activity_threshold),
+                        '-T', '{:f}'.format(min_activity_duration),
+                        '-s', '{:f}'.format(initial_search_buffer),
+                        '-g', '{:f}'.format(max_gap),
+                        '-p', '{:f}'.format(initial_pad)])
+
+    if location == -1:
+        effect_args.append('reverse')
+
+    self.effects.extend(effect_args)
+    self.effects_log.append('vad')
+    return self
+
+猜测的函数名1:  vad
+猜测的函数名2:basetr 
+猜测的函数名3: createsearchqueue
+猜测的函数名4:configure_effects
+N0.14========================================================================
+
+def XXXXX(ctx, pager, limit, twtfile, sorting, timeout, porcelain, source, cache, force_update):
+    if source:
+        source_obj = ctx.obj["conf"].get_source_by_nick(source)
+        if not source_obj:
+            logger.debug("Not following {0}, trying as URL".format(source))
+            source_obj = Source(source, source)
+        sources = [source_obj]
+    else:
+        sources = ctx.obj["conf"].following
+
+    tweets = []
+    if cache:
+        try:
+            with Cache.discover(update_interval=ctx.obj["conf"].timeline_update_interval) as cache:
+                force_update = force_update or not cache.is_valid
+                if force_update:
+                    tweets = get_remote_tweets(sources, limit, timeout, cache)
+                else:
+                    logger.debug("Multiple calls to 'timeline' within {0} seconds. Skipping update".format(cache.update_interval))
+                    # Behold, almighty list comprehensions! (I might have gone overboard here…)
+                    tweets = list(chain.from_iterable([cache.get_tweets(source.url) for source in sources]))
+        except OSError as e:
+            logger.debug(e)
+            tweets = get_remote_tweets(sources, limit, timeout)
+    else:
+        tweets = get_remote_tweets(sources, limit, timeout)
+
+    if twtfile and not source:
+        source = Source(ctx.obj["conf"].nick, ctx.obj["conf"].twturl, file=twtfile)
+        tweets.extend(get_local_tweets(source, limit))
+
+    if not tweets:
+        return
+
+    tweets = sort_and_truncate_tweets(tweets, sorting, limit)
+
+    if pager:
+        click.echo_via_pager(style_timeline(tweets, porcelain))
+    else:
+        click.echo(style_timeline(tweets, porcelain))
+
+猜测的函数名1: timeline
+猜测的函数名2: follow
+猜测的函数名3: followers
+猜测的函数名4:fetch_tweets
+N0.15========================================================================
+
+def XXXXX(github_user, template, long_format):
+    github_urls = temple.ls.ls(github_user, template=template)
+
+    for ssh_path, info in github_urls.items():
+        if long_format:
+            print(ssh_path, '-', info['description'] or '(no project description found)')
+        else:
+            print(ssh_path)
+
+猜测的函数名1: ls
+猜测的函数名2: download
+猜测的函数名3: getgithubprojects
+猜测的函数名4:print_github_repo_info
+N0.16========================================================================
+
+def XXXXX(ctx, no_publish=False, clean=False, opts=''):
+    cfg = config.load()
+
+    if clean:
+        ctx.run("invoke clean --docs")
+
+    cmd = ['sphinx-build', '-b', 'confluence']
+    cmd.extend(['-E', '-a'])
+
+    # force a full rebuild
+    if opts:
+        cmd.append(opts)
+
+    cmd.extend(['.', ctx.rituals.docs.build + '_cf'])
+
+    if no_publish:
+        cmd.extend(['-Dconfluence_publish=False'])
+
+    # Build docs
+    notify.info("Starting Sphinx build...")
+
+    with pushd(ctx.rituals.docs.sources):
+        ctx.run(' '.join(cmd), pty=True)
+
+猜测的函数名1:  confluence
+猜测的函数名2: build
+猜测的函数名3: builddocs
+猜测的函数名4:build_docs
+N0.17========================================================================
+
+def XXXXX(self, T):
+    result = 0.0
+
+    if T < self.Tmax:
+        lT = T
+    else:
+        lT = self.Tmax
+
+    Tref = self.Tmin
+
+    for c, e in zip(self._coefficients, self._exponents):
+        # Analytically integrate Cp(T).
+        if e == -1.0:
+            result += c * math.log(lT / Tref)
+        else:
+            result += c * (lT ** (e + 1.0) - Tref ** (e + 1.0)) / (e + 1.0)
+
+    return result
+
+
+猜测的函数名1: H
+猜测的函数名2: orbitinfos
+猜测的函数名3: gauss
+猜测的函数名4:calculate_integration_result
+N0.18========================================================================
+
+def XXXXX(port, RTS, DTR):
+    port.setRTS(RTS)
+    port.setDTR(DTR)
+
+猜测的函数名1: _setRTSDTR
+猜测的函数名2: setport
+猜测的函数名3: setportproperties
+猜测的函数名4:setportsettings
+N0.19========================================================================
+
+def XXXXX(self, time: int = None) -> bool:
+    if time is None:
+        epoch = datetime(1970, 1, 1, 0, 0, 0)
+        now = datetime.utcnow()
+        time = int((now - epoch).total_seconds())
+
+    if isinstance(self.valid_from, int) and time < self.valid_from:
+        return False
+
+    if isinstance(self.valid_to, int) and time > self.valid_to:
+        return False
+
+    return True
+
+猜测的函数名1: valid
+猜测的函数名2: accesst
+猜测的函数名3: isoutof
+猜测的函数名4:is_within_time_range
+N0.20========================================================================
+
+def XXXXX(ip):
+    bits = []
+
+    while ip:
+        bits.append(_BYTES_TO_BITS[ip & 255])
+        ip >>= 8
+
+    bits.reverse()
+    return ''.join(bits) or 32 * '0'
+猜测的函数名1: _dec_to_bin
+猜测的函数名2: ipv4
+猜测的函数名3: iptohex
+猜测的函数名4:iptobinarystring
+N0.21========================================================================
+
+def XXXXX(fname=False, save=True, show=None):
+    if fname and os.path.exists(fname.replace(".abf", ".rst")):
+        print("SKIPPING DUE TO RST FILE")
+        return
+
+    swhlab.plotting.core.IMAGE_SAVE = save
+
+    if show is None:
+        if cm.isIpython():
+            swhlab.plotting.core.IMAGE_SHOW = True
+        else:
+            swhlab.plotting.core.IMAGE_SHOW = False
+
+    abf = ABF(fname)  # ensure it's a class
+    print(">>>>> PROTOCOL >>>>>", abf.protocomment)
+
+    runFunction = "proto_unknown"
+
+    if "proto_" + abf.protocomment in globals():
+        runFunction = "proto_" + abf.protocomment
+
+    abf.log.debug("running %s()" % (runFunction))
+    plt.close('all')  # get ready
+
+    try:
+        globals()[runFunction](abf)  # run that function
+    except Exception as e:
+        abf.log.error("EXCEPTION DURING PROTOCOL FUNCTION")
+        abf.log.error(e)
+        return "ERROR"
+
+    plt.close('all')  # clean up
+    return "SUCCESS"
+
+猜测的函数名1: analyze
+猜测的函数名2: autobuild
+猜测的函数名3: runprotocol
+猜测的函数名4:execute_protocol
+N0.22========================================================================
+
+def XXXXX(x, rho, penalty, axis=0, newshape=None):
+    orig_shape = x.shape
+
+    if newshape is not None:
+        x = x.reshape(newshape)
+
+    # Apply Laplacian smoothing (l2 norm on the parameters multiplied by
+    # the laplacian)
+    n = x.shape[axis]
+    lap_op = spdiags([(2 + rho / penalty) * np.ones(n),
+                      -1 * np.ones(n),
+                      -1 * np.ones(n)],
+                     [0, -1, 1], n, n, format='csc')
+    A = penalty * lap_op
+    b = rho * np.rollaxis(x, axis, 0)
+
+    return np.rollaxis(spsolve(A, b), axis, 0).reshape(orig_shape)
+
+猜测的函数名1: smooth
+猜测的函数名2: fit
+猜测的函数名3: laplacian
+猜测的函数名4:laplacian_solver
+N0.23========================================================================
+
+def XXXXX(n):
+    checksum = 10 - (sum([int(c) * i for c, i in zip(str(n)[::-1], it.cycle((7, 3, 1)))]) % 10)
+    if checksum == 10:
+        checksum = 0
+    return "%s%s" % (n, checksum)
+
+
+猜测的函数名1:  int2fin_reference
+猜测的函数名2: calculate
+猜测的函数名3: addchecksum
+猜测的函数名4:calculatechecksum
+N0.24========================================================================
+
+def XXXXX(isocode, lang="eng"):
+    if lang not in flask_nemo._data.AVAILABLE_TRANSLATIONS:
+        lang = "eng"
+
+    try:
+        return flask_nemo._data.ISOCODES[isocode][lang]
+    except KeyError:
+        return "Unknown"
+
+猜测的函数名1: f_i18n_iso
+猜测的函数名2: getiso
+猜测的函数名3: getisocode
+猜测的函数名4:eng
+N0.25========================================================================
+
+def XXXXX(self, timeout=5):
+    host = self._connect_args['host']
+    port = self._connect_args['port']
+
+    try:
+        sock = socket.create_connection((host, port), timeout=timeout)
+        sock.close()
+        return True
+    except socket.error:
+        pass
+
+    return False
+
+猜测的函数名1: available
+猜测的函数名2: tcpconnection
+猜测的函数名3: isconnected
+猜测的函数名4:check_connection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

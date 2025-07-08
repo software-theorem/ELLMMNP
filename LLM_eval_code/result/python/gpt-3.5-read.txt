@@ -1,0 +1,1044 @@
+-----------------样本：0 -----------------
+idx: 0
+code:
+def XXXXX(CNN=None, second=10, saveable=True, name='cnn', fig_idx=3119362):
+    import matplotlib.pyplot as plt
+    
+    # tl.logging.info(CNN.shape)    # (5, 5, 3, 64) # exit()
+    n_mask = CNN.shape[3]
+    n_row = CNN.shape[0]
+    n_col = CNN.shape[1]
+    n_color = CNN.shape[2]
+    
+    row = int(np.sqrt(n_mask))
+    col = int(np.ceil(n_mask / row))
+    
+    plt.ion()  # active mode
+    fig = plt.figure(fig_idx)
+    count = 1
+    
+    for _ir in range(1, row + 1):
+        for _ic in range(1, col + 1):
+            if count > n_mask:
+                break
+            fig.add_subplot(col, row, count)
+            
+            # tl.logging.info(CNN[:,:,:,count-1].shape, n_row, n_col)   # (5, 1, 32) 5 5 # exit()
+            # plt.imshow(
+            #         np.reshape(CNN[count-1,:,:,:], (n_row, n_col)),
+            #         cmap='gray', interpolation="nearest")     # theano
+            
+            if n_color == 1:
+                plt.imshow(np.reshape(CNN[:, :, :, count - 1], (n_row, n_col)),
+                           cmap='gray', interpolation="nearest")
+            elif n_color == 3:
+                plt.imshow(np.reshape(CNN[:, :, :, count - 1], (n_row, n_col, n_color)),
+                           cmap='gray', interpolation="nearest")
+            else:
+                raise Exception("Unknown n_color")
+            
+            plt.gca().xaxis.set_major_locator(plt.NullLocator())  # distable tick
+            plt.gca().yaxis.set_major_locator(plt.NullLocator())
+            
+            count = count + 1
+    
+    if saveable:
+        plt.savefig(name + '.pdf', format='pdf')
+    else:
+        plt.draw()
+        plt.pause(second)
+reasons:
+**Function Name 1: CNN2d**
+C1: 3. The name "CNN2d" is somewhat descriptive as it references CNN (Convolution Neural Network) and 2D data, which is accurate. However, it could be more clear and specific. 
+
+**Function Name 2: plotcn**
+C1: 2. The name "plotcn" is quite vague and generic. It doesn't provide much information about what the function does, which can be misleading. 
+
+**Function Name 3: plotcnn**
+C1: 4. The name "plotcnn" is a good choice as it accurately describes the function's functionality of plotting Convolutional Neural Network data. It is clear and directly related to the purpose of the function.
+
+**Function Name 4: visualize_cnn**
+C1: 5. The name "visualize_cnn" is an excellent choice. It perfectly captures the essence of the function, which is to visualize Convolutional Neural Network data. The name is clear, precise, and idiomatic.
+
+
+-----------------样本：1 -----------------
+idx: 1
+code:
+@llrule(loc, lambda parser: [kind])
+def XXXXX(kind, loc=None):
+    def rule(parser):
+        result = parser._accept(kind)
+        if result is unmatched:
+            return result
+        return result.loc
+    
+    return rule
+reasons:
+This code snippet appears to define a higher-order function that takes a `kind` argument and an optional `loc` argument. It then defines an inner function `rule` which attempts to parse the `kind` using the `parser` object, and returns the location if successful.
+
+Let's evaluate the function names:
+
+**Function Name 1: Loc**
+C1: 2. This function name is too generic and vague. While the function does involve handling a location (`loc`), it doesn't fully capture the essence of what the function does.
+
+**Function Name 2: lazy**
+C1: 1. This function name is very misleading. The function doesn't seem to have any relation to being lazy or laziness. It would confuse developers looking at this code.
+
+**Function Name 3: acceptrule**
+C1: 3. This function name is somewhat descriptive as the code is related to accepting rules, but it is quite generic and doesn't fully convey the parsing functionality happening inside the function.
+
+**Function Name 4: rule_definition**
+C1: 4. This function name is decently descriptive as it mentions rule definition, which aligns with what the inner function `rule` is doing in the code snippet. It could be clearer by including parsing or acceptance related terms.
+
+In summary, the function name "rule_definition" seems to align best with the inner workings of the function, but it could be improved for better clarity and specificity.
+
+
+-----------------样本：2 -----------------
+idx: 2
+code:
+def XXXXX(self, board, layers, things, the_plot):
+    # Disappear if we've hit a bunker.
+    if self.character in the_plot['bunker_hitters']:
+        return self._teleport((-1, -1))
+    
+    # End the game if we've hit the player.
+    if self.position == things['P'].position:
+        the_plot.terminate_episode()
+        self._south(board, the_plot)
+reasons:
+**Function Name 1: _fly**
+C1: 3. The name "_fly" is somewhat descriptive as it could be related to movement or flying, but it doesn't fully capture the specifics of the method such as handling collisions and game termination.
+
+**Function Name 2: pellfl**
+C1: 1. The name "pellfl" is very poor and completely unrelated to the code snippet. It does not provide any clue about what the function does or its purpose.
+
+**Function Name 3: onhit**
+C1: 4. The name "onhit" is good as it accurately describes the method's functionality related to what happens when a hit occurs in the game. It is clear, readable, and relevant to the code snippet.
+
+**Function Name 4: handle_collision**
+C1: 5. The name "handle_collision" is excellent as it precisely conveys the purpose of the method, which is to manage collision events within the game. It is clear, descriptive, and aligns perfectly with the code snippet provided.
+
+
+-----------------样本：3 -----------------
+idx: 3
+code:
+def XXXXX(cpu, dest, src):
+    # XXX bypass a capstone bug that incorrectly extends and computes operands sizes
+    # the bug has been fixed since capstone 4.0.alpha2 (commit de8dd26)
+    if src.size == 64 and src.type == 'immediate' and dest.size == 64:
+        arg1 = Operators.SEXTEND(src.read(), 32, 64)
+    else:
+        arg1 = src.read()
+
+    res = dest.write(dest.read() & arg1)
+
+    # Defined Flags: szp
+    cpu._calculate_logic_flags(dest.size, res)
+reasons:
+**Function Name 1: AND**
+C1: 4. The name "AND" accurately describes the method's functionality as it performs a bitwise AND operation. The name is clear and commonly used for this type of operation.
+
+**Function Name 2: flagsand**
+C1: 3. The name "flagsand" is somewhat descriptive as it implies that the function is related to flags and performs some kind of bitwise 'and' operation. However, it is a bit vague and may not be clear to someone unfamiliar with the context.
+
+**Function Name 3: copy**
+C1: 2. The name "copy" is quite generic and doesn't accurately describe the functionality of the method. It may lead to confusion as it doesn't convey that a bitwise AND operation is being performed.
+
+**Function Name 4: bypasscapstonebug**
+C1: 5. The name "bypasscapstonebug" is excellent as it precisely describes what the function is doing. It conveys that the function is specifically designed to bypass a bug related to Capstone and is very clear and idiomatic.
+
+
+-----------------样本：4 -----------------
+idx: 4
+code:
+def XXXXX(cpu, src):
+    reg_name_h = {8: 'AH', 16: 'DX', 32: 'EDX', 64: 'RDX'}[src.size]
+    reg_name_l = {8: 'AL', 16: 'AX', 32: 'EAX', 64: 'RAX'}[src.size]
+
+    dividend = Operators.CONCAT(src.size * 2, cpu.read_register(reg_name_h), cpu.read_register(reg_name_l))
+    divisor = src.read()
+
+    if isinstance(divisor, int) and divisor == 0:
+        raise DivideByZeroError()
+
+    dst_size = src.size * 2
+    divisor = Operators.SEXTEND(divisor, src.size, dst_size)
+
+    mask = (1 << dst_size) - 1
+    sign_mask = 1 << (dst_size - 1)
+
+    dividend_sign = (dividend & sign_mask) != 0
+    divisor_sign = (divisor & sign_mask) != 0
+
+    if isinstance(divisor, int):
+        if divisor_sign:
+            divisor = ((~divisor) + 1) & mask
+            divisor = -divisor
+
+    if isinstance(dividend, int):
+        if dividend_sign:
+            dividend = ((~dividend) + 1) & mask
+            dividend = -dividend
+
+    quotient = Operators.SDIV(dividend, divisor)
+
+    if isinstance(dividend, int) and isinstance(dividend, int):
+        # handle the concrete case
+        remainder = dividend - (quotient * divisor)
+    else:
+        # symbolic case -- optimize via SREM
+        remainder = Operators.SREM(dividend, divisor)
+
+    cpu.write_register(reg_name_l, Operators.EXTRACT(quotient, 0, src.size))
+    cpu.write_register(reg_name_h, Operators.EXTRACT(remainder, 0, src.size))
+reasons:
+**Function Name 1: IDIV**
+**C1: 5**. The name accurately describes the method's functionality, as the function performs signed integer division (IDIV). The name is clear, precise, and idiomatic, perfectly matching the purpose of the function.
+
+**Function Name 2: opslogicalm**
+**C1: 1**. The name is very poor and misleading. It does not describe the method's functionality at all. This function is not related to logical operations, making the name highly inaccurate.
+
+**Function Name 3: divideby**
+**C1: 3**. The name is fair in describing the function's purpose, as it involves division. However, it lacks specificity and could be more precise. While it conveys the essence of the function, it falls short of being highly descriptive.
+
+**Function Name 4: divide**
+**C1: 4**. The name "divide" fairly conveys the main operation of the function, which is division. It is clear and mostly accurate, but it could be more specific or detailed to further improve its clarity. It is a good, but not the most precise name for this function.
+
+
+-----------------样本：5 -----------------
+idx: 5
+code:
+def XXXXX(cpu, dest):
+    dest.write(Operators.ITEBV(dest.size, cpu.ZF, 1, 0))
+reasons:
+**Function Name 1: SETZ**
+C1: 3. The name "SETZ" is somewhat descriptive as it hints at setting something based on a condition (in this case, the zero flag). However, it could be more precise and idiomatic.
+
+**Function Name 2: opsbranchesm**
+C1: 1. The name "opsbranchesm" is very poor as it is completely unrelated and does not provide any insight into what the function is doing.
+
+**Function Name 3: writezero**
+C1: 4. The name "writezero" is clear and mostly accurate as it mentions writing zero based on certain conditions, which aligns with what the function is doing.
+
+**Function Name 4: conditionalwrite**
+C1: 5. The name "conditionalwrite" is excellent as it clearly and precisely describes the functionality of the function, which is performing a conditional write operation based on certain conditions.
+
+
+-----------------样本：6 -----------------
+idx: 6
+code:
+def XXXXX(cpu, op0):
+    # TODO FIX 64Bit FIX segment
+    proc = op0.read()
+    cpu.push(cpu.PC, cpu.address_bit_size)
+    cpu.PC = proc
+reasons:
+**Function Name 1: CALL**
+C1: 3. The function body seems to be related to calling a procedure based on the code snippet. The name "CALL" is somewhat descriptive but could be more specific as to what is being called.
+
+**Function Name 2: processorcall**
+C1: 2. While the function involves calling a process, the name "processorcall" is quite generic and unclear. It doesn't convey much about what is actually happening in the function.
+
+**Function Name 3: cpubaseread**
+C1: 1. The function name "cpubaseread" doesn't accurately describe the functionality of the function. It seems to involve more than just reading from the CPU base.
+
+**Function Name 4: load_and_execute**
+C1: 4. The function name "load_and_execute" is quite precise and descriptive. It clearly conveys the action of loading a value and executing it, which aligns well with the function's purpose in the code snippet.
+
+
+-----------------样本：7 -----------------
+idx: 7
+code:
+def XXXXX(self, recipient):
+    # This may create a user account
+    recipient = Operators.EXTRACT(recipient, 0, 160)
+    address = self.address
+    
+    # FIXME for on the known addresses
+    if issymbolic(recipient):
+        logger.info("Symbolic recipient on self destruct")
+        recipient = solver.get_value(self.constraints, recipient)
+    
+    if recipient not in self.world:
+        self.world.create_account(address=recipient)
+        self.world.send_funds(address, recipient, self.world.get_balance(address))
+        self.world.delete_account(address)
+    
+    raise EndTx('SELFDESTRUCT')
+reasons:
+**Function Name 1: SELFDESTRUCT**
+C1: 5. The function accurately describes the method's functionality as it raises an 'EndTx' exception related to self-destruction. It is clear, precise, and idiomatic.
+**Function Name 2: election**
+C1: 1. The function name is very poor as it is completely unrelated and misleading. It does not describe the purpose or functionality of the method in any way.
+**Function Name 3: destruct**
+C1: 3. The function name is fair as it partially describes what the method is doing, which is related to self-destruction. However, it lacks clarity and could be confused with other types of destruction.
+**Function Name 4: createandtransferfunds**
+C1: 4. The function name is good as it accurately describes the main actions taken by the method, which involve creating an account and transferring funds. It is clear and mostly accurate.
+
+
+-----------------样本：8 -----------------
+idx: 8
+code:
+def XXXXX(self):
+    logger.info("DFK cleanup initiated")
+
+    # this check won't detect two DFK cleanups happening from
+    # different threads extremely close in time because of
+    # non-atomic read/modify of self.cleanup_called
+    if self.cleanup_called:
+        raise Exception("attempt to clean up DFK when it has already been cleaned-up")
+
+    self.cleanup_called = True
+    self.log_task_states()
+
+    # Checkpointing takes priority over the rest of the tasks
+    # checkpoint if any valid checkpoint method is specified
+    if self.checkpoint_mode is not None:
+        self.checkpoint()
+
+    if self._checkpoint_timer:
+        logger.info("Stopping checkpoint timer")
+        self._checkpoint_timer.close()
+
+    # Send final stats
+    self.usage_tracker.send_message()
+    self.usage_tracker.close()
+
+    logger.info("Terminating flow_control and strategy threads")
+    self.flowcontrol.close()
+
+    for executor in self.executors.values():
+        if executor.managed:
+            if executor.scaling_enabled:
+                job_ids = executor.provider.resources.keys()
+                executor.scale_in(len(job_ids))
+            executor.shutdown()
+
+    self.time_completed = datetime.datetime.now()
+
+    if self.monitoring:
+        self.monitoring.send(MessageType.WORKFLOW_INFO, {
+            'tasks_failed_count': self.tasks_failed_count,
+            'tasks_completed_count': self.tasks_completed_count,
+            "time_began": self.time_began,
+            'time_completed': self.time_completed,
+            'workflow_duration': (self.time_completed - self.time_began).total_seconds(),
+            'run_id': self.run_id,
+            'rundir': self.run_dir
+        })
+
+        self.monitoring.close()
+
+    """
+    if self.logging_server is not None:
+        self.logging_server.terminate()
+        self.logging_server.join()
+
+    if self.web_app is not None:
+        self.web_app.terminate()
+        self.web_app.join()
+    """
+
+    logger.info("DFK cleanup complete")
+reasons:
+**Function Name 1: cleanup**
+C1: 4. The function name "cleanup" accurately describes the method's functionality since it is cleaning up resources in the code snippet. It is clear and follows good naming conventions in software development.
+
+**Function Name 2: dfaserver**
+C1: 1. The function name "dfaserver" is very poor and unrelated to the method's functionality. It does not provide a clear indication of what the method does or how it operates.
+
+**Function Name 3: initdfk**
+C1: 3. The function name "initdfk" is somewhat descriptive, but not ideal. While it mentions initialization, it doesn't clearly convey that the function is primarily related to cleanup actions in the code snippet.
+
+**Function Name 4: dfk_initiated**
+C1: 2. The function name "dfk_initiated" is poor. It suggests that the function is related to the initiation of 'DFK', which is not accurate as the function is primarily about cleaning up resources. The name could be misleading to someone trying to understand the function's purpose.
+
+
+-----------------样本：9 -----------------
+idx: 9
+code:
+def XXXXX(self, my_task):
+    assert my_task is not None
+    self.test()
+
+    # Acquire locks, if any.
+    for lock in self.locks:
+        mutex = my_task.workflow._get_mutex(lock)
+        if not mutex.testandset():
+            return
+
+    # Assign variables, if so requested.
+    for assignment in self.pre_assign:
+        assignment.assign(my_task, my_task)
+
+    # Run task-specific code.
+    self._on_ready_before_hook(my_task)
+    self.reached_event.emit(my_task.workflow, my_task)
+    self._on_ready_hook(my_task)
+
+    # Run user code, if any.
+    if self.ready_event.emit(my_task.workflow, my_task):
+
+        # Assign variables, if so requested.
+        for assignment in self.post_assign:
+            assignment.assign(my_task, my_task)
+
+        # Release locks, if any.
+        for lock in self.locks:
+            mutex = my_task.workflow._get_mutex(lock)
+            mutex.unlock()
+
+        self.finished_event.emit(my_task.workflow, my_task)
+reasons:
+**Function Name 1: _on_ready**
+C1: 4. The name "_on_ready" accurately describes the method's functionality as it seems to involve actions related to being ready, which is clear and fits the naming convention. This name is good as it is clear and mostly accurate.
+
+**Function Name 2: taskon**
+C1: 3. The name "taskon" is somewhat descriptive as it hints at working with tasks, but it lacks clarity about the specific actions performed. This name is fair as it could be more specific and descriptive.
+
+**Function Name 3: reach**
+C1: 2. The name "reach" is quite generic and does not provide much insight into the method's functionality. It lacks clarity and specificity, making it a poor choice for this function.
+
+**Function Name 4: execute_task**
+C1: 1. The name "execute_task" is very poor for this method as it does not accurately represent the actions taken within the function. This function involves various actions beyond just executing a task, so the name is misleading and unrelated.
+
+
+-----------------样本：10 -----------------
+idx: 10
+code:
+def XXXXX(model, reaction_list=None, loopless=False, fraction_of_optimum=1.0, pfba_factor=None, processes=None):
+    if reaction_list is None:
+        reaction_ids = [r.id for r in model.reactions]
+    else:
+        reaction_ids = [r.id for r in model.reactions.get_by_any(reaction_list)]
+
+    if processes is None:
+        processes = CONFIGURATION.processes
+
+    num_reactions = len(reaction_ids)
+    processes = min(processes, num_reactions)
+
+    fva_result = DataFrame({"minimum": zeros(num_reactions, dtype=float), "maximum": zeros(num_reactions, dtype=float)}, index=reaction_ids)
+    prob = model.problem
+
+    with model:
+        # Safety check before setting up FVA.
+        model.slim_optimize(error_value=None, message="There is no optimal solution for the chosen objective!")
+
+        # Add the previous objective as a variable to the model then set it to zero.
+        # This also uses the fraction to create the lower/upper bound for the old objective.
+        # TODO: Use utility function here (fix_objective_as_constraint)?
+        if model.solver.objective.direction == "max":
+            fva_old_objective = prob.Variable("fva_old_objective", lb=fraction_of_optimum * model.solver.objective.value)
+        else:
+            fva_old_objective = prob.Variable("fva_old_objective", ub=fraction_of_optimum * model.solver.objective.value)
+
+        fva_old_obj_constraint = prob.Constraint(model.solver.objective.expression - fva_old_objective, lb=0, ub=0, name="fva_old_objective_constraint")
+        model.add_cons_vars([fva_old_objective, fva_old_obj_constraint])
+
+        if pfba_factor is not None:
+            if pfba_factor < 1.:
+                warn("The 'pfba_factor' should be larger or equal to 1.", UserWarning)
+
+            with model:
+                add_pfba(model, fraction_of_optimum=0)
+                ub = model.slim_optimize(error_value=None)
+
+                flux_sum = prob.Variable("flux_sum", ub=pfba_factor * ub)
+                flux_sum_constraint = prob.Constraint(model.solver.objective.expression - flux_sum, lb=0, ub=0, name="flux_sum_constraint")
+                model.add_cons_vars([flux_sum, flux_sum_constraint])
+
+            model.objective = Zero  # This will trigger the reset as well
+
+        for what in ("minimum", "maximum"):
+            if processes > 1:
+                # We create and destroy a new pool here in order to set the
+                # objective direction for all reactions. This creates a
+                # slight overhead but seems the most clean.
+                chunk_size = len(reaction_ids) // processes
+                pool = multiprocessing.Pool(processes, initializer=_init_worker, initargs=(model, loopless, what[:3]))
+
+                for rxn_id, value in pool.imap_unordered(_fva_step, reaction_ids, chunksize=chunk_size):
+                    fva_result.at[rxn_id, what] = value
+
+                pool.close()
+                pool.join()
+            else:
+                _init_worker(model, loopless, what[:3])
+
+                for rxn_id, value in map(_fva_step, reaction_ids):
+                    fva_result.at[rxn_id, what] = value
+
+    return fva_result[["minimum", "maximum"]]
+reasons:
+**Function Name 1: flux_variability_analysis**
+**C1: 5.** This function name accurately describes the method's functionality as it calculates the flux variability analysis. The name is clear, precise, and idiomatic, making it an excellent match for the function.
+
+**Function Name 2: calculate**
+**C1: 2.** While the method does involve calculations, the name "calculate" is very generic and does not specifically convey that the function performs flux variability analysis. It's a vague name that could apply to many different types of calculations.
+
+**Function Name 3: getfva**
+**C1: 3.** The name "getfva" somewhat describes the method's functionality by indicating it retrieves flux variability analysis results. However, it lacks clarity and could be misleading as it doesn't explicitly convey that the function is actually calculating or performing the analysis.
+
+**Function Name 4: performfva**
+**C1: 4.** This name "performfva" is quite clear and mostly accurate in describing the method's purpose, which is to conduct flux variability analysis. It is a good name, but it could be improved by being a bit more specific or concise in conveying the exact operation being performed.
+
+
+-----------------样本：11 -----------------
+idx: 11
+code:
+def XXXXX(CASRN, AvailableMethods=False, Method=None):
+    def list_methods():
+        methods = []
+        if CASRN in GWP_data.index:
+            methods.append(IPCC100)
+            if not pd.isnull(GWP_data.at[CASRN, 'SAR 100yr']):
+                methods.append(IPCC100SAR)
+            methods.append(IPCC20)
+            methods.append(IPCC500)
+            methods.append(NONE)
+        return methods
+
+    if AvailableMethods:
+        return list_methods()
+
+    if not Method:
+        Method = list_methods()[0]
+
+    if Method == IPCC100:
+        return float(GWP_data.at[CASRN, '100yr GWP'])
+    elif Method == IPCC100SAR:
+        return float(GWP_data.at[CASRN, 'SAR 100yr'])
+    elif Method == IPCC20:
+        return float(GWP_data.at[CASRN, '20yr GWP'])
+    elif Method == IPCC500:
+        return float(GWP_data.at[CASRN, '500yr GWP'])
+    elif Method == NONE:
+        return None
+    else:
+        raise Exception('Failure in function')
+reasons:
+**Function Name 1: GWP**
+**C1: 4**. The function name "GWP" is a good name as it accurately describes that the function is related to Global Warming Potential. It is clear and mostly accurate.
+
+**Function Name 2: cip**
+**C1: 1**. The function name "cip" is very poor as it is not related to the functionality of the code snippet at all. It is completely unrelated and misleading.
+
+**Function Name 3: gaussian**
+**C1: 1**. The function name "gaussian" is very poor as it has nothing to do with the functionality described in the code snippet. It is completely misleading and unrelated.
+
+**Function Name 4: get_flood_risk_value**
+**C1: 3**. The function name "get_flood_risk_value" is fair as it somewhat describes that the function retrieves a value related to flood risk. However, it could be more concise and specific to the operations within the function.
+
+
+-----------------样本：12 -----------------
+idx: 12
+code:
+def XXXXX(self, location=1, normalize=True, activity_threshold=7.0, min_activity_duration=0.25,
+        initial_search_buffer=1.0, max_gap=0.25, initial_pad=0.0):
+    if location not in [-1, 1]:
+        raise ValueError("location must be -1 or 1.")
+    if not isinstance(normalize, bool):
+        raise ValueError("normalize must be a boolean.")
+    if not is_number(activity_threshold):
+        raise ValueError("activity_threshold must be a number.")
+    if not is_number(min_activity_duration) or min_activity_duration < 0:
+        raise ValueError("min_activity_duration must be a positive number")
+    if not is_number(initial_search_buffer) or initial_search_buffer < 0:
+        raise ValueError("initial_search_buffer must be a positive number")
+    if not is_number(max_gap) or max_gap < 0:
+        raise ValueError("max_gap must be a positive number.")
+    if not is_number(initial_pad) or initial_pad < 0:
+        raise ValueError("initial_pad must be a positive number.")
+
+    effect_args = []
+    if normalize:
+        effect_args.append('norm')
+    if location == -1:
+        effect_args.append('reverse')
+
+    effect_args.extend(['vad', '-t', '{:f}'.format(activity_threshold),
+                        '-T', '{:f}'.format(min_activity_duration),
+                        '-s', '{:f}'.format(initial_search_buffer),
+                        '-g', '{:f}'.format(max_gap),
+                        '-p', '{:f}'.format(initial_pad)])
+
+    if location == -1:
+        effect_args.append('reverse')
+
+    self.effects.extend(effect_args)
+    self.effects_log.append('vad')
+    return self
+reasons:
+**Function Name 1: vad**
+**C1: 4. The function verifies and applies audio processing effects based on the provided parameters, including a voice activity detection threshold. The name "vad" accurately describes the method's functionality, as it involves processing for voice activity detection. It is clear and specific, making it a good choice for this function.**
+
+**Function Name 2: basetr**
+**C1: 1. The name "basetr" does not accurately describe the method's functionality. The function is related to processing audio effects and parameters, not something that can be easily associated with "basetr." It is very poor as it is misleading and vague in capturing the essence of the function.**
+
+**Function Name 3: createsearchqueue**
+**C1: 3. The function is responsible for setting and applying audio processing effects based on parameters related to voice activity detection and other factors. The name "createsearchqueue" does not seem to directly relate to the functionality it performs, giving it a fair rating. It is somewhat descriptive but not ideal as it doesn't entirely capture the operations of the function.**
+
+**Function Name 4: configure_effects**
+**C1: 5. The function configures and applies various audio processing effects based on the provided parameters, including voice activity detection settings. The name "configure_effects" precisely and clearly describes the method's functionality. It is specific, clear, and idiomatic, making it an excellent choice for this function.**
+
+
+-----------------样本：13 -----------------
+idx: 13
+code:
+def XXXXX(ctx, pager, limit, twtfile, sorting, timeout, porcelain, source, cache, force_update):
+    if source:
+        source_obj = ctx.obj["conf"].get_source_by_nick(source)
+        if not source_obj:
+            logger.debug("Not following {0}, trying as URL".format(source))
+            source_obj = Source(source, source)
+        sources = [source_obj]
+    else:
+        sources = ctx.obj["conf"].following
+
+    tweets = []
+    if cache:
+        try:
+            with Cache.discover(update_interval=ctx.obj["conf"].timeline_update_interval) as cache:
+                force_update = force_update or not cache.is_valid
+                if force_update:
+                    tweets = get_remote_tweets(sources, limit, timeout, cache)
+                else:
+                    logger.debug("Multiple calls to 'timeline' within {0} seconds. Skipping update".format(cache.update_interval))
+                    # Behold, almighty list comprehensions! (I might have gone overboard here…)
+                    tweets = list(chain.from_iterable([cache.get_tweets(source.url) for source in sources]))
+        except OSError as e:
+            logger.debug(e)
+            tweets = get_remote_tweets(sources, limit, timeout)
+    else:
+        tweets = get_remote_tweets(sources, limit, timeout)
+
+    if twtfile and not source:
+        source = Source(ctx.obj["conf"].nick, ctx.obj["conf"].twturl, file=twtfile)
+        tweets.extend(get_local_tweets(source, limit))
+
+    if not tweets:
+        return
+
+    tweets = sort_and_truncate_tweets(tweets, sorting, limit)
+
+    if pager:
+        click.echo_via_pager(style_timeline(tweets, porcelain))
+    else:
+        click.echo(style_timeline(tweets, porcelain))
+reasons:
+**Function Name 1: timeline**
+C1: 5. The function processes and displays tweets in chronological order, making "timeline" a precise and clear name for this functionality.
+
+**Function Name 2: follow**
+C1: 1. The function doesn't seem to be related to following users or accounts, so "follow" is very poor as it is misleading.
+
+**Function Name 3: followers**
+C1: 1. Similar to the previous evaluation, this function doesn't handle or retrieve follower data, making "followers" a very poor choice.
+
+**Function Name 4: fetch_tweets**
+C1: 4. The function retrieves and processes tweets, which aligns well with the action of fetching tweets. The name "fetch_tweets" is clear and mostly accurate in describing the functionality of the function.
+
+
+-----------------样本：14 -----------------
+idx: 14
+code:
+def XXXXX(github_user, template, long_format):
+    github_urls = temple.ls.ls(github_user, template=template)
+
+    for ssh_path, info in github_urls.items():
+        if long_format:
+            print(ssh_path, '-', info['description'] or '(no project description found)')
+        else:
+            print(ssh_path)
+reasons:
+**Function Name 1: ls**
+- C1: 3. This name is somewhat descriptive as it hints at listing something which is what the function does, however, it could be more specific.
+- ls is commonly used to list files in Unix-like systems which might cause confusion here. Given ls' general association, it could mislead regarding the function's purpose.
+
+**Function Name 2: download**
+- C1: 1. This name is very poor as 'download' doesn't accurately describe the function's functionality. The function doesn't involve downloading anything but instead lists information.
+- Using 'download' could mislead users, causing confusion about what the function actually does.
+
+**Function Name 3: getgithubprojects**
+- C1: 2. This name is poor as it is quite generic and doesn't fully capture the function's action. While it mentions "githubprojects," it doesn't specify what action is being performed on these projects.
+- The function doesn't specifically retrieve GitHub projects but rather lists URLs and information related to these projects, making the name not very accurate.
+
+**Function Name 4: print_github_repo_info**
+- C1: 4. This name is good as it accurately describes the function's functionality. It conveys that the function prints information about GitHub repositories which aligns with what the function does.
+- However, the name could be improved by being more concise and following common naming conventions like 'print_github_repo_info' to 'print_github_repo_info'.
+
+
+-----------------样本：15 -----------------
+idx: 15
+code:
+def XXXXX(ctx, no_publish=False, clean=False, opts=''):
+    cfg = config.load()
+
+    if clean:
+        ctx.run("invoke clean --docs")
+
+    cmd = ['sphinx-build', '-b', 'confluence']
+    cmd.extend(['-E', '-a'])
+
+    # force a full rebuild
+    if opts:
+        cmd.append(opts)
+
+    cmd.extend(['.', ctx.rituals.docs.build + '_cf'])
+
+    if no_publish:
+        cmd.extend(['-Dconfluence_publish=False'])
+
+    # Build docs
+    notify.info("Starting Sphinx build...")
+
+    with pushd(ctx.rituals.docs.sources):
+        ctx.run(' '.join(cmd), pty=True)
+reasons:
+This code snippet seems to be related to building and publishing documentation using Sphinx. Let's evaluate each function name based on the given criteria.
+
+**Function Name 1: confluence**
+C1: 4. The function does involve building documentation, specifically targeting the Confluence platform. The name "confluence" accurately describes the method's functionality and is clear and readable. It reflects the purpose of building documentation for Confluence.
+  
+**Function Name 2: build**
+C1: 5. The function is primarily about building documentation. The name "build" is precise, clear, and idiomatic, reflecting the core functionality of this method. It is a common term in software development for compiling or constructing something.
+
+**Function Name 3: builddocs**
+C1: 3. While the function is related to building documentation, the name "builddocs" is somewhat descriptive but not ideal. It combines two words without clear separation, which might make it slightly harder to read compared to the other options.
+
+**Function Name 4: build_docs**
+C1: 4. The function involves building documentation, and the name "build_docs" is clear and mostly accurate. It uses an underscore to separate the words, following common naming conventions in programming. The name clearly indicates the purpose of the function.
+
+In conclusion, based on the criteria provided and the function implementation, the ratings for the function names are as follows:
+- confluence: 4
+- build: 5
+- builddocs: 3
+- build_docs: 4
+
+
+-----------------样本：16 -----------------
+idx: 16
+code:
+def XXXXX(self, T):
+    result = 0.0
+
+    if T < self.Tmax:
+        lT = T
+    else:
+        lT = self.Tmax
+
+    Tref = self.Tmin
+
+    for c, e in zip(self._coefficients, self._exponents):
+        # Analytically integrate Cp(T).
+        if e == -1.0:
+            result += c * math.log(lT / Tref)
+        else:
+            result += c * (lT ** (e + 1.0) - Tref ** (e + 1.0)) / (e + 1.0)
+
+    return result
+reasons:
+**Function Name 1: H**
+- C1: 2. The function calculates an integration result using coefficients and exponents, which seems unrelated to the name "H."
+- It does not accurately describe the method's functionality and is vague.
+  
+**Function Name 2: orbitinfos**
+- C1: 1. The function name "orbitinfos" is misleading as the function does not seem to be related to orbit information.
+- It is completely unrelated to the method's functionality.
+  
+**Function Name 3: gauss**
+- C1: 3. The function name "gauss" is somewhat related to the functionality as it involves mathematical operations, but it doesn't fully convey the integration calculation aspect.
+- It is somewhat descriptive but not an ideal match.
+  
+**Function Name 4: calculate_integration_result**
+- C1: 5. The function name "calculate_integration_result" accurately describes the method's functionality by mentioning integration calculation, which is the main purpose of the function.
+- It is precise, clear, and idiomatic.
+
+
+-----------------样本：17 -----------------
+idx: 17
+code:
+def XXXXX(port, RTS, DTR):
+    port.setRTS(RTS)
+    port.setDTR(DTR)
+reasons:
+This code snippet sets the RTS (Request to Send) and DTR (Data Terminal Ready) signals on a specified port. Let's evaluate the function names based on semantic match, clarity, and readability:
+
+**Function Name 1: _setRTSDTR**
+C1: 2. This name is poor as it combines both "RTS" and "DTR" into one word without clear separation, making it vague and difficult to understand.
+
+**Function Name 2: setport**
+C1: 1. This name is very poor because it doesn't mention anything about setting RTS or DTR and may suggest setting properties of the port instead.
+
+**Function Name 3: setportproperties**
+C1: 3. This name is fair as it mentions setting port properties, but it doesn't specify that it's specifically related to setting RTS and DTR signals.
+
+**Function Name 4: setportsettings**
+C1: 4. This name is good as it indicates setting port settings, which is generally accurate, but it could be improved by explicitly mentioning the setting of RTS and DTR signals.
+
+Overall, based on the criteria provided:
+Function Name 1: _setRTSDTR
+C1: 2. The name is rated 2 due to being vague and not clearly describing the functionality.
+
+Function Name 2: setport
+C1: 1. The name is rated 1 because it is completely unrelated and doesn't accurately describe the function's purpose.
+
+Function Name 3: setportproperties
+C1: 3. The name is rated 3 as it somewhat describes the action of setting properties but lacks specificity regarding RTS and DTR.
+
+Function Name 4: setportsettings
+C1: 4. The name is rated 4 for being clear and mostly accurate but could be more precise by explicitly mentioning setting RTS and DTR signals.
+
+
+-----------------样本：18 -----------------
+idx: 18
+code:
+def XXXXX(self, time: int = None) -> bool:
+    if time is None:
+        epoch = datetime(1970, 1, 1, 0, 0, 0)
+        now = datetime.utcnow()
+        time = int((now - epoch).total_seconds())
+
+    if isinstance(self.valid_from, int) and time < self.valid_from:
+        return False
+
+    if isinstance(self.valid_to, int) and time > self.valid_to:
+        return False
+
+    return True
+reasons:
+**Function Name 1: valid**
+C1: 3. The name "valid" is somewhat descriptive but not entirely accurate. It doesn't clearly convey the time-related check happening in the function, but it's not entirely misleading either.
+
+**Function Name 2: accesst**
+C1: 1. The name "accesst" is very poor as it doesn't relate to the function's purpose at all. It's unrelated and misleading.
+
+**Function Name 3: isoutof**
+C1: 4. The name "isoutof" is good as it correctly conveys the idea of checking if the time is out of a certain range. It could be improved by being clearer and following naming conventions more closely.
+
+**Function Name 4: is_within_time_range**
+C1: 5. The name "is_within_time_range" is excellent. It is precise, clear, and idiomatic. It perfectly describes what the function does and follows naming conventions effectively.
+
+
+-----------------样本：19 -----------------
+idx: 19
+code:
+def XXXXX(ip):
+    bits = []
+
+    while ip:
+        bits.append(_BYTES_TO_BITS[ip & 255])
+        ip >>= 8
+
+    bits.reverse()
+    return ''.join(bits) or 32 * '0'
+reasons:
+This code snippet appears to be converting an IP address from a decimal format to binary format. Here are the evaluations for each function name:
+
+**Function Name 1: _dec_to_bin**
+C1: 4. The name "dec_to_bin" accurately describes the method's functionality of converting a decimal IP address to binary. While the underscore prefix indicates it may be a private function, the name is clear and descriptive.
+
+**Function Name 2: ipv4**
+C1: 3. The name "ipv4" is somewhat related since it deals with an IP address, but it doesn't fully describe the conversion from decimal to binary. It is clear but might be misleading as it doesn't mention the conversion aspect explicitly.
+
+**Function Name 3: iptohex**
+C1: 1. The name "iptohex" is very poor and misleading as it suggests converting the IP address to hexadecimal, but the function is actually converting it to binary. This name does not accurately describe the method's functionality.
+
+**Function Name 4: iptobinarystring**
+C1: 5. The name "iptobinarystring" is excellent as it precisely describes what the function does - converting an IP address to a binary string. It is clear, accurate, and follows naming conventions well.
+
+In summary, the function name ratings are:
+Function Name 1: _dec_to_bin - 4
+Function Name 2: ipv4 - 3
+Function Name 3: iptohex - 1
+Function Name 4: iptobinarystring - 5
+
+
+-----------------样本：20 -----------------
+idx: 20
+code:
+def XXXXX(fname=False, save=True, show=None):
+    if fname and os.path.exists(fname.replace(".abf", ".rst")):
+        print("SKIPPING DUE TO RST FILE")
+        return
+
+    swhlab.plotting.core.IMAGE_SAVE = save
+
+    if show is None:
+        if cm.isIpython():
+            swhlab.plotting.core.IMAGE_SHOW = True
+        else:
+            swhlab.plotting.core.IMAGE_SHOW = False
+
+    abf = ABF(fname)  # ensure it's a class
+    print(">>>>> PROTOCOL >>>>>", abf.protocomment)
+
+    runFunction = "proto_unknown"
+
+    if "proto_" + abf.protocomment in globals():
+        runFunction = "proto_" + abf.protocomment
+
+    abf.log.debug("running %s()" % (runFunction))
+    plt.close('all')  # get ready
+
+    try:
+        globals()[runFunction](abf)  # run that function
+    except Exception as e:
+        abf.log.error("EXCEPTION DURING PROTOCOL FUNCTION")
+        abf.log.error(e)
+        return "ERROR"
+
+    plt.close('all')  # clean up
+    return "SUCCESS"
+reasons:
+**Function Name 1: analyze**
+**C1: 2. Poor**
+**Detailed Explanations:** The function does not specifically analyze anything but rather executes a protocol function based on the provided data. The name "analyze" is generic and does not accurately describe the purpose of the function.
+
+**Function Name 2: autobuild**
+**C1: 2. Poor**
+**Detailed Explanations:** The function does not involve any building processes or automation related to building. The name "autobuild" is misleading and not descriptive of the actual functionality of the function.
+
+**Function Name 3: runprotocol**
+**C1: 5. Excellent**
+**Detailed Explanations:** This function name accurately describes the main purpose of the function, which is running a specific protocol based on the provided data. The name "runprotocol" is clear, concise, and directly reflects the function's primary task.
+
+**Function Name 4: execute_protocol**
+**C1: 4. Good**
+**Detailed Explanations:** The function name "execute_protocol" is quite clear and descriptive of the function's functionality, which involves executing a protocol function based on input data. While the name could be slightly improved by removing the underscore to match naming conventions, it still effectively conveys the primary task of the function.
+
+
+-----------------样本：21 -----------------
+idx: 21
+code:
+def XXXXX(x, rho, penalty, axis=0, newshape=None):
+    orig_shape = x.shape
+
+    if newshape is not None:
+        x = x.reshape(newshape)
+
+    # Apply Laplacian smoothing (l2 norm on the parameters multiplied by
+    # the laplacian)
+    n = x.shape[axis]
+    lap_op = spdiags([(2 + rho / penalty) * np.ones(n),
+                      -1 * np.ones(n),
+                      -1 * np.ones(n)],
+                     [0, -1, 1], n, n, format='csc')
+    A = penalty * lap_op
+    b = rho * np.rollaxis(x, axis, 0)
+
+    return np.rollaxis(spsolve(A, b), axis, 0).reshape(orig_shape)
+reasons:
+First, let's analyze the code snippet provided:
+The function takes in an input array 'x', parameters 'rho' and 'penalty', optionally a new shape 'newshape', and an axis along which to operate. It reshapes the input array if 'newshape' is provided, performs Laplacian smoothing on the array based on the provided parameters, and then solves the Laplacian equation to return a reshaped array.
+
+Now, let's evaluate each function name:
+
+**Function Name 1: smooth**
+C1: 3. This name is fairly descriptive as it hints at some kind of data smoothing process, but it lacks specificity regarding the Laplacian operation in the function.
+
+**Function Name 2: fit**
+C1: 1. The name 'fit' is quite misleading as it is commonly used in machine learning contexts for model training, which is not the case in this function. It doesn't accurately describe the complex operations happening in the function.
+
+**Function Name 3: laplacian**
+C1: 4. This name is good as it directly relates to the Laplacian smoothing operation being performed in the function. It captures the essence of the mathematical operation involved.
+
+**Function Name 4: laplacian_solver**
+C1: 5. This name is excellent as it concisely describes the function's purpose of solving the Laplacian operation. It is clear, detailed, and accurately represents the primary task of the function.
+
+In summary, the function names are rated as follows:
+- smooth: 3 (Fair)
+- fit: 1 (Very poor)
+- laplacian: 4 (Good)
+- laplacian_solver: 5 (Excellent)
+
+
+-----------------样本：22 -----------------
+idx: 22
+code:
+def XXXXX(n):
+    checksum = 10 - (sum([int(c) * i for c, i in zip(str(n)[::-1], it.cycle((7, 3, 1)))]) % 10)
+    if checksum == 10:
+        checksum = 0
+    return "%s%s" % (n, checksum)
+reasons:
+It seems like you've provided a code snippet for a function without revealing the actual function name. Nonetheless, I can help evaluate the candidate function names based on the code snippet provided:
+
+**Function Name 1: int2fin_reference**
+C1: 1. The name "int2fin_reference" doesn't accurately describe the method's functionality. This name is quite misleading as it doesn't hint at the purpose of the function, which involves calculating a checksum and adding it to the input number.
+Rating: 1. This name is very poor as it doesn't relate to the actual purpose of the function.
+
+**Function Name 2: calculate**
+C1: 2. The name "calculate" is quite generic. While it indicates that some calculation is performed, it doesn't specify what kind of calculation is being done.
+Rating: 2. This name is poor as it lacks specificity and doesn't clearly describe the function's purpose.
+
+**Function Name 3: addchecksum**
+C1: 4. The name "addchecksum" accurately describes the main functionality of the function, which involves calculating a checksum and adding it to the input number.
+Rating: 4. This name is good as it clearly conveys the purpose of the function, but it could be slightly improved by being more specific about the calculation being performed.
+
+**Function Name 4: calculatechecksum**
+C1: 5. The name "calculatechecksum" precisely describes the function's core purpose, which is to calculate a checksum and add it to the input number.
+Rating: 5. This name is excellent as it is clear, precise, and directly reflects the key operation carried out by the function.
+
+In conclusion, based on the code snippet provided, "calculatechecksum" seems to be the most appropriate function name as it is clear, concise, and accurately portrays the main action of the function.
+
+
+-----------------样本：23 -----------------
+idx: 23
+code:
+def XXXXX(isocode, lang="eng"):
+    if lang not in flask_nemo._data.AVAILABLE_TRANSLATIONS:
+        lang = "eng"
+
+    try:
+        return flask_nemo._data.ISOCODES[isocode][lang]
+    except KeyError:
+        return "Unknown"
+reasons:
+**Function Name 1: f_i18n_iso**
+**C1: 3. Fair.** The function name is somewhat descriptive but not ideal. It hints at internationalization (i18n) and ISO codes, but it could be clearer and more specific.
+
+**Function Name 2: getiso**
+**C1: 4. Good.** The function name accurately describes the method's functionality of getting an ISO code. It is clear and concise, following common naming conventions.
+
+**Function Name 3: getisocode**
+**C1: 3. Fair.** The function name is descriptive, indicating getting an ISO code. However, it could be more succinct and direct, as "getiso" is clearer.
+
+**Function Name 4: eng**
+**C1: 1. Very poor.** This function name is completely unrelated and misleading. It does not describe the method's functionality at all.
+
+In summary, "getiso" is the most suitable function name as it is clear, descriptive, and aligned with the method's purpose.
+
+
+-----------------样本：24 -----------------
+idx: 24
+code:
+def XXXXX(self, timeout=5):
+    host = self._connect_args['host']
+    port = self._connect_args['port']
+
+    try:
+        sock = socket.create_connection((host, port), timeout=timeout)
+        sock.close()
+        return True
+    except socket.error:
+        pass
+
+    return False
+reasons:
+**Function Name 1: available**
+C1: 3. This function name is somewhat descriptive as it implies checking for availability, which aligns with the function attempting to establish a socket connection. However, it could be more precise in describing the check for the connection status.
+
+**Function Name 2: tcpconnection**
+C1: 4. This function name is clear and accurate, indicating the operation related to creating a TCP connection. It matches the functionality of the code snippet well.
+
+**Function Name 3: isconnected**
+C1: 4. This function name is precise and clear, indicating the purpose of checking if a connection is established. It accurately describes the function's primary task.
+
+**Function Name 4: check_connection**
+C1: 5. This function name is excellent as it clearly describes the main operation of the function - checking the status of the connection. It is specific, accurate, and easy to understand.
+
+
+
+
