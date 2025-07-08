@@ -5,7 +5,7 @@ import logging
 import os
 import sys
 from tqdm import tqdm
-from model import GPT, StarChat, CodeLLAMA
+from model import GPT, StarChat, CodeLLAMA，StarCoder
 
 from util.remove_comments import remove_comments_and_docstrings
 from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
@@ -204,6 +204,8 @@ def main():
         model = StarChat(args=args)
     elif args.model == 'codellama':
         model = CodeLLAMA(args=args)
+    elif args.model == 'starcoder':
+        model = StarCoder(args=args)
     else:
         print('Model not found!')
         sys.exit(1)
