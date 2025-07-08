@@ -197,7 +197,7 @@ def main():
     MODEL_NAME_OR_PATH = {'gpt-3.5':'gpt-3.5-turbo',
                           'codellama': '/XXX/XXX/XXX/codellama-I',
                           'starchat': '/XXX/XXX/XXX/starchat-bert',
- 			                    'starcoder': '//XXX/XXX/XXX/starcoderbase-7b'
+ 			              'starcoder': '//XXX/XXX/XXX/starcoderbase-7b'
                           }
     args.model_name_or_path = MODEL_NAME_OR_PATH[args.model]
     if args.model == 'gpt-3.5':
