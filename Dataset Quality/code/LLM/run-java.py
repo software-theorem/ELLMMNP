@@ -60,7 +60,7 @@ fewshot_example_10 = [
 ]
 
 
-def generate_summaries_zero_shot(args, model, code, output_file, cnt=0):
+def generate_name_zero_shot(args, model, code, output_file, cnt=0):
     args.logger.info('zero-shot prompt...')
 
     with open(output_file, args.mode, encoding="utf-8") as f:
@@ -81,7 +81,7 @@ def generate_summaries_zero_shot(args, model, code, output_file, cnt=0):
             print('current idx:', idx)
 
 
-def generate_summaries_few_shot(args, model, code, output_file, cnt=0):
+def generate_names_few_shot(args, model, code, output_file, cnt=0):
     args.logger.info('few-shot prompt...')
     prompt = 'Here are ten examples of code and the corresponding method name.\n'
     for example in args.fewshot_example_10:
@@ -217,8 +217,8 @@ def main():
         write_ground_truth(gold,  dir + '/groundtruth.jsonl')
 
 
-    generate_summaries_zero_shot(args, model, codes, dir + 'zero_shot.jsonl', 0)
-    # generate_summaries_few_shot_10_example(args, model, code, dir + 'few_shot_10_example.csv', 0)
+    generate_names_zero_shot(args, model, codes, dir + 'zero_shot.jsonl', 0)
+    # generate_names_few_shot_10_example(args, model, code, dir + 'few_shot_10_example.csv', 0)
 
 if __name__ == '__main__':
     main()
