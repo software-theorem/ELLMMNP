@@ -14,7 +14,7 @@ torchvision==0.16.0
 ```
 
 ```
-**LLM_eval_code/**
+LLM_eval_code/
 ├── data/                       # Original datasets (Java and Python)
 │   ├── *.txt                   # Plain text format
 │   └── *.jsonl                 # JSONL format
@@ -32,10 +32,10 @@ torchvision==0.16.0
 `{model}-read.txt`: Human-readable formatted version of model predictions
 
 ```
-├── CSN-Premium4MNP/
+CSN-Premium4MNP/
 │   ├── code/                  # Scripts for dataset extraction and preprocessing
 │   └── readme.md              # Dataset statistics and description
-**Dataset Quality/**
+Dataset Quality/
 ├── cal/                       # Evaluation metric implementations
 │   ├── java               # F1 score and SBCS computation for java
 │   └── python                   # F1 score and SBCS computation for python
